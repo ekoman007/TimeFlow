@@ -1,51 +1,28 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Microsoft.EntityFrameworkCore;
 using TimeFlow.Domain.Aggregates.UsersAggregates;
-using TimeFlow.Domain.Repositories;
+using TimeFlow.Infrastructure.Contracts;
 using TimeFlow.Infrastructure.Database;
 
 namespace TimeFlow.Infrastructure.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : GenericRepository<User, int>, IUserRepository
     {
-        private readonly TimeFlowDbContext _context;
+        private readonly TimeFlowDbContext _dbContext;
 
-        public UserRepository(TimeFlowDbContext context)
+        public UserRepository(TimeFlowDbContext dbContext) : base(dbContext)
         {
-            _context = context;
-        }
+            _dbContext = dbContext;
+        } 
 
-        public Task AddAsync(User user)
+        public async Task<bool> ExistsByEmailAsync(string email, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Users.AnyAsync(u => u.Email == email, cancellationToken);
         }
-
-        public async Task AddUserAsync(User user)
+        public async Task<User?> GetUserByEmailAsync(string email, CancellationToken cancellationToken)
         {
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-        }
-
-        public Task<List<User>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<User> GetByEmailAsync(string email)
-        {
-            return await _context.Users
-            .Include(u => u.Role)  // Mund të përfshini rolin nëse është e nevojshme 
-            .FirstOrDefaultAsync(u => u.Email == email);
-        }
-
-        public Task<bool> UserExistsAsync(string email)
-        {
-            throw new NotImplementedException();
-        }
+            return await _dbContext.Users
+                .FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
+        } 
     }
-
 }

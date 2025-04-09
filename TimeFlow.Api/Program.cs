@@ -69,18 +69,18 @@ builder.Services.AddDbContext<TimeFlowDbContext>(options =>
 // Regjistro JWT token generator dhe shërbime të tjera
 builder.Services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<ITestUserRepository, TestUserRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 //builder.Services.AddSingleton<IUserRegisteredPublisher, UserRegisteredPublisher>();
 
 // Regjistro AutoMapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-// Regjistro MediatR 
-builder.Services.AddMediatR(typeof(LoginUserCommand).Assembly);
-builder.Services.AddMediatR(typeof(AddUserCommand).Assembly);
+//// Regjistro MediatR 
+//builder.Services.AddMediatR(typeof(LoginUserCommand).Assembly);
+//builder.Services.AddMediatR(typeof(AddUserCommand).Assembly);
+builder.Services.AddMediatR(typeof(LoginCommand).Assembly);
 
 // Konfigurimi i JWT Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
