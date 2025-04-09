@@ -1,6 +1,6 @@
-using MediatR; 
-using Microsoft.AspNetCore.Authentication.JwtBearer; 
-using Microsoft.EntityFrameworkCore; 
+using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using System.Text;
@@ -8,12 +8,12 @@ using TimeFlow.Api.Middlewares;
 using TimeFlow.Application.Commands;
 using TimeFlow.Domain.Repositories;
 using TimeFlow.Domain.Security;
+using TimeFlow.Infrastructure.Contracts;
 using TimeFlow.Infrastructure.Database;
 using TimeFlow.Infrastructure.Repositories;
 using TimeFlow.Infrastructure.Security;
 
 var builder = WebApplication.CreateBuilder(args);
- 
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -27,7 +27,6 @@ builder.Host.UseSerilog((context, services, configuration) => configuration
     .Enrich.FromLogContext()
     .Enrich.WithMachineName()
     .Enrich.WithEnvironmentName());
-
 
 // Shto Swagger dhe konfigurimin e autorizimit me JWT
 builder.Services.AddSwaggerGen(c =>
@@ -68,10 +67,11 @@ builder.Services.AddDbContext<TimeFlowDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Regjistro JWT token generator dhe shërbime të tjera
-builder.Services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>(); 
+builder.Services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<ITestUserRepository, TestUserRepository>();
 
 //builder.Services.AddSingleton<IUserRegisteredPublisher, UserRegisteredPublisher>();
 
@@ -81,7 +81,6 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Regjistro MediatR 
 builder.Services.AddMediatR(typeof(LoginUserCommand).Assembly);
 builder.Services.AddMediatR(typeof(AddUserCommand).Assembly);
-
 
 // Konfigurimi i JWT Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -101,6 +100,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+// Shtoni CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()    // Lejon çdo origjinë
+              .AllowAnyMethod()    // Lejon çdo metodë (GET, POST, PUT, etj.)
+              .AllowAnyHeader();   // Lejon çdo header
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -115,6 +125,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Aktivizoni CORS
+app.UseCors("AllowAll");  // Kjo përdor politikën "AllowAll" që krijuam më parë
 
 // Aktivizoni Authentication dhe Authorization
 app.UseAuthentication(); // Kjo është e nevojshme për të validuar tokenin JWT

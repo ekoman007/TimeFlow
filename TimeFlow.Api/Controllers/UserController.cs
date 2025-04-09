@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TimeFlow.Application.Commands;
+using TimeFlow.Application.Responses;
 
 namespace TimeFlow.Api.Controllers
 {
@@ -39,5 +40,7 @@ namespace TimeFlow.Api.Controllers
 
             return Ok(new { Token = result.Data });
         }
+
+       
     }
 }

@@ -9,6 +9,7 @@ namespace TimeFlow.Infrastructure.Database
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserDetails> UserDetails { get; set; }
+        public DbSet<TestUser> TestUser { get; set; }
 
         public TimeFlowDbContext(DbContextOptions<TimeFlowDbContext> options)
             : base(options)

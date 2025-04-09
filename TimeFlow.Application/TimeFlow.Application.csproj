@@ -7,8 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\" />
-    <Folder Include="Mapping\" />
     <Folder Include="Queries\" />
   </ItemGroup>
 
@@ -21,8 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TimeFlow.Domain\TimeFlow.Domain.csproj" />
-    <ProjectReference Include="..\TimeFlow.SharedKernel\TimeFlow.SharedKernel.csproj" />
+    <ProjectReference Include="..\TimeFlow.Infrastructure\TimeFlow.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
