@@ -5,11 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimeFlow.Application.Commands.Roles.Command;
 using TimeFlow.Application.Responses;
 using TimeFlow.Domain.Repositories;
 using TimeFlow.Infrastructure.Contracts.Roles;
 
-namespace TimeFlow.Application.Commands.Roles
+namespace TimeFlow.Application.Features.Roles.Commands
 {
     public class DeleteRoleCommandHandler : IRequestHandler<DeleteRoleCommand, GeneralResponse<int>>
     {
@@ -28,9 +29,10 @@ namespace TimeFlow.Application.Commands.Roles
         {
             ArgumentNullException.ThrowIfNull(request);
             ;
-            var roleExists = await _roleRepository.GetById(request.Id, cancellationToken : cancellationToken );
+            var roleExists = await _roleRepository.GetById(request.Id, cancellationToken: cancellationToken);
 
-            if(roleExists == null) {
+            if (roleExists == null)
+            {
                 return new GeneralResponse<int>
                 {
                     Success = false,
@@ -46,7 +48,7 @@ namespace TimeFlow.Application.Commands.Roles
             {
                 roleExists.ChangeStatusToDelete();
             }
-             
+
             await _roleRepository.Update(roleExists, cancellationToken).ConfigureAwait(false);
             await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
 

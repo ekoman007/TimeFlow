@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using TimeFlow.Application.Commands;
+using TimeFlow.Application.Features.User.Command;
 using TimeFlow.Application.Responses;
 
 namespace TimeFlow.Api.Controllers

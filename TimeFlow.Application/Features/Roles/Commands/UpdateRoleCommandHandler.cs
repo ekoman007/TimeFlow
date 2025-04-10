@@ -6,12 +6,13 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimeFlow.Application.Commands.Roles.Command;
 using TimeFlow.Application.Responses;
 using TimeFlow.Domain.Aggregates.UsersAggregates.Roles;
 using TimeFlow.Domain.Repositories;
 using TimeFlow.Infrastructure.Contracts.Roles;
 
-namespace TimeFlow.Application.Commands.Roles
+namespace TimeFlow.Application.Features.Roles.Commands
 {
     public class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommand, GeneralResponse<int>>
     {
@@ -30,7 +31,7 @@ namespace TimeFlow.Application.Commands.Roles
         {
             ArgumentNullException.ThrowIfNull(request);
 
-            var roleExists = await _roleRepository.GetById(request.Id); 
+            var roleExists = await _roleRepository.GetById(request.Id);
 
             roleExists.ChangeRoleName(request.RoleName);
             roleExists.ChangeDescription(request.Description);

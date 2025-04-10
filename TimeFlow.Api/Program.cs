@@ -5,8 +5,8 @@ using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using System.Text;
 using TimeFlow.Api.Middlewares;
-using TimeFlow.Application.Commands;
-using TimeFlow.Application.Commands.Roles;
+using TimeFlow.Application.Commands.Roles.Command;
+using TimeFlow.Application.Features.Login.Commands;
 using TimeFlow.Domain.Repositories;
 using TimeFlow.Domain.Security;
 using TimeFlow.Infrastructure.Contracts;
@@ -36,7 +36,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
     {
-        Title = "AuthService API",
+        Title = "TimeFlow API",
         Version = "v1"
     });
 
@@ -85,7 +85,6 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 //builder.Services.AddMediatR(typeof(LoginUserCommand).Assembly);
 //builder.Services.AddMediatR(typeof(AddUserCommand).Assembly);
 builder.Services.AddMediatR(typeof(LoginCommand).Assembly);
-builder.Services.AddMediatR(typeof(CreateRoleCommand).Assembly);
 
 // Konfigurimi i JWT Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

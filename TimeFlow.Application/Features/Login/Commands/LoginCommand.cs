@@ -1,7 +1,7 @@
-﻿using MediatR; 
+﻿using MediatR;
 using TimeFlow.Application.Responses;
 
-namespace TimeFlow.Application.Commands
+namespace TimeFlow.Application.Features.Login.Commands
 {
     public class LoginCommand : IRequest<GeneralResponse<string>>
     {

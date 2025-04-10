@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using TimeFlow.Application.Commands.Roles.Command;
 using TimeFlow.Application.Responses;
 using TimeFlow.Domain.Aggregates.UsersAggregates;
 using TimeFlow.Domain.Aggregates.UsersAggregates.Roles;
@@ -7,17 +8,17 @@ using TimeFlow.Domain.Repositories;
 using TimeFlow.Infrastructure.Contracts;
 using TimeFlow.Infrastructure.Contracts.Roles;
 
-namespace TimeFlow.Application.Commands.Roles
+namespace TimeFlow.Application.Features.Roles.Commands
 {
     public class CreateRoleCommandHandler : IRequestHandler<CreateRoleCommand, GeneralResponse<int>>
     {
-        private readonly IUnitOfWork _unitOfWork; 
-        private readonly IMapper _mapper;   
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
         private readonly IRoleRepository _roleRepository;
 
         public CreateRoleCommandHandler(IUnitOfWork unitOfWork, IRoleRepository roleRepository, IMapper mapper)
         {
-            _unitOfWork = unitOfWork; 
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
             _roleRepository = roleRepository;
         }
@@ -35,7 +36,7 @@ namespace TimeFlow.Application.Commands.Roles
                     Message = "Role with this email already exists."
                 };
             }
-              
+
             Role role = Role.Create(request.RoleName, request.Description);
 
             await _roleRepository.Add(role, cancellationToken).ConfigureAwait(false);

@@ -1,7 +1,7 @@
-﻿using MediatR; 
+﻿using MediatR;
 using TimeFlow.Application.Responses;
 
-namespace TimeFlow.Application.Commands.Roles
+namespace TimeFlow.Application.Commands.Roles.Command
 {
     public class UpdateRoleCommand : IRequest<GeneralResponse<int>>
     {

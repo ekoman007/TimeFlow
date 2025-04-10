@@ -2,8 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TimeFlow.Application.Commands;
-using TimeFlow.Application.Commands.Roles;
-using TimeFlow.Application.Queries.Roles;
+using TimeFlow.Application.Commands.Roles.Command;
+using TimeFlow.Application.Features.Roles.DTOs;
+using TimeFlow.Application.Features.Roles.Queries;
 using TimeFlow.Application.Queries.Roles.TimeFlow.Application.Queries.Roles;
 using TimeFlow.Application.Responses;
 

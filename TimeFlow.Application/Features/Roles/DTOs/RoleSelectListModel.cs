@@ -1,6 +1,4 @@
-﻿ 
-
-namespace TimeFlow.Application.Queries.Roles
+﻿namespace TimeFlow.Application.Features.Roles.DTOs
 {
     public class RoleSelectListModel
     {

@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using TimeFlow.Application.Features.Roles.DTOs;
 using TimeFlow.Application.Queries.Roles.TimeFlow.Application.Queries.Roles;
 using TimeFlow.Infrastructure.Contracts.Roles;
 
-namespace TimeFlow.Application.Queries.Roles
+namespace TimeFlow.Application.Features.Roles.Queries
 {
     public class RoleSelectListQueryHandler : IRequestHandler<RoleSelectListQuery, List<RoleSelectListModel>>
     {
@@ -17,7 +18,7 @@ namespace TimeFlow.Application.Queries.Roles
         public async Task<List<RoleSelectListModel>> Handle(RoleSelectListQuery query, CancellationToken cancellationToken)
         {
             // Merrni rolet nga repository
-             
+
             var roles = await _roleRepository
                 .Get(cancellationToken: cancellationToken)
                 .ToListAsync(cancellationToken);

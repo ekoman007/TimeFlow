@@ -10,25 +10,20 @@ using TimeFlow.Infrastructure.Repositories;
 using TimeFlow.Infrastructure.Security;
 using TimeFlow.SharedKernel;
 
-namespace TimeFlow.Application.Commands
+namespace TimeFlow.Application.Features.Login.Commands
 {
     public class LoginCommandHandler : IRequestHandler<LoginCommand, GeneralResponse<string>>
-    {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IPasswordHasher _passwordHasher;
-        private readonly IMapper _mapper;  // AutoMapper 
+    { 
+        private readonly IPasswordHasher _passwordHasher; 
         private readonly IUserRepository _itestUserRepository;
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
 
-        public LoginCommandHandler(IUnitOfWork unitOfWork,
-            IUserRepository itestUserRepository, 
+        public LoginCommandHandler(
+            IUserRepository itestUserRepository,
             IPasswordHasher passwordHasher, 
-            IMapper mapper,  
             IJwtTokenGenerator jwtTokenGenerator)
-        {
-            _unitOfWork = unitOfWork;
-            _passwordHasher = passwordHasher;
-            _mapper = mapper; 
+        { 
+            _passwordHasher = passwordHasher; 
             _itestUserRepository = itestUserRepository;
             _jwtTokenGenerator = jwtTokenGenerator;
         }
@@ -61,4 +56,4 @@ namespace TimeFlow.Application.Commands
 
     }
 }
- 
+

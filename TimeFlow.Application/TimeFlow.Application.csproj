@@ -18,4 +18,8 @@
     <ProjectReference Include="..\TimeFlow.Infrastructure\TimeFlow.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Login\Queries\" />
+  </ItemGroup>
+
 </Project>

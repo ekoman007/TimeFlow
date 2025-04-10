@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TimeFlow.Application.Responses;
 
-namespace TimeFlow.Application.Commands.Roles
+namespace TimeFlow.Application.Commands.Roles.Command
 {
     public class DeleteRoleCommand : IRequest<GeneralResponse<int>>
     {
