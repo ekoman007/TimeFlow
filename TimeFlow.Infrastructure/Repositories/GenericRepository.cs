@@ -22,29 +22,29 @@ namespace TimeFlow.Infrastructure.Repositories
             _dbSet = _dbContext.Set<TEntity>();
         }
 
-        public async Task<IEnumerable<TEntity>> Get(
-            Expression<Func<TEntity, bool>> predicate = null,
-            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>[] includes = null,
-            CancellationToken cancellationToken = default)
+        public IQueryable<TEntity> Get(
+         Expression<Func<TEntity, bool>> predicate = null,
+         Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>[] includes = null,
+         CancellationToken cancellationToken = default)
         {
             IQueryable<TEntity> queryable = _dbSet;
 
             if (includes != null && includes.Any())
             {
-                foreach (Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include in includes)
+                foreach (var include in includes)
                 {
                     queryable = include(queryable);
                 }
             }
 
-            IEnumerable<TEntity> result = (predicate == null)
-                ?
-                await queryable.ToListAsync(cancellationToken).ConfigureAwait(false)
-                :
-                await queryable.Where(predicate).ToListAsync(cancellationToken).ConfigureAwait(false);
+            if (predicate != null)
+            {
+                queryable = queryable.Where(predicate);
+            }
 
-            return result;
+            return queryable;
         }
+
 
         public async Task<TEntity> GetById(TKey id, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>[] includes = null, CancellationToken cancellationToken = default)
         {

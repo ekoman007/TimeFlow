@@ -1,4 +1,5 @@
-﻿using MediatR; 
+﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using TimeFlow.Application.Queries.Roles.TimeFlow.Application.Queries.Roles;
 using TimeFlow.Infrastructure.Contracts.Roles;
 
@@ -16,7 +17,10 @@ namespace TimeFlow.Application.Queries.Roles
         public async Task<List<RoleSelectListModel>> Handle(RoleSelectListQuery query, CancellationToken cancellationToken)
         {
             // Merrni rolet nga repository
-            var roles = await _roleRepository.Get(cancellationToken: cancellationToken).ConfigureAwait(false);
+             
+            var roles = await _roleRepository
+                .Get(cancellationToken: cancellationToken)
+                .ToListAsync(cancellationToken);
 
             // Kthejeni vetëm Id dhe RoleName për çdo rol
             return roles.Select(role => new RoleSelectListModel

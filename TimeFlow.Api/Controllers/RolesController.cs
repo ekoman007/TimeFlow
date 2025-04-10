@@ -36,11 +36,17 @@ namespace TimeFlow.Api.Controllers
             return await Mediator.Send(command).ConfigureAwait(false);
         }
 
+        //[HttpGet]
+        //public async Task<GeneralResponse<IEnumerable<RolesModel>>> GetCustomers()
+        //{
+        //    return await Mediator.Send(new RoleListQuery()).ConfigureAwait(false);
+        //}
         [HttpGet]
-        public async Task<GeneralResponse<IEnumerable<RolesModel>>> GetCustomers()
+        public async Task<GeneralResponse<IEnumerable<RolesModel>>> GetRoles([FromQuery] RoleListQuery query)
         {
-            return await Mediator.Send(new RoleListQuery()).ConfigureAwait(false);
+            return await Mediator.Send(query).ConfigureAwait(false);
         }
+
 
         [HttpGet("{id}")]
         public async Task<GeneralResponse<RolesModel>> GetRoleById(int id)
