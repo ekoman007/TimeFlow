@@ -7,8 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TimeFlow.Application.Commands.Roles.Command;
-using TimeFlow.Application.Responses;
-using TimeFlow.Domain.Aggregates.UsersAggregates.Roles;
+using TimeFlow.Application.Responses; 
 using TimeFlow.Domain.Repositories;
 using TimeFlow.Infrastructure.Contracts.Roles;
 
@@ -16,14 +15,12 @@ namespace TimeFlow.Application.Features.Roles.Commands
 {
     public class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommand, GeneralResponse<int>>
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork; 
         private readonly IRoleRepository _roleRepository;
 
-        public UpdateRoleCommandHandler(IUnitOfWork unitOfWork, IRoleRepository roleRepository, IMapper mapper)
+        public UpdateRoleCommandHandler(IUnitOfWork unitOfWork, IRoleRepository roleRepository)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
+            _unitOfWork = unitOfWork; 
             _roleRepository = roleRepository;
         }
 
@@ -31,7 +28,7 @@ namespace TimeFlow.Application.Features.Roles.Commands
         {
             ArgumentNullException.ThrowIfNull(request);
 
-            var roleExists = await _roleRepository.GetById(request.Id);
+            var roleExists = await _roleRepository.GetById(request.Id, cancellationToken : cancellationToken);
 
             roleExists.ChangeRoleName(request.RoleName);
             roleExists.ChangeDescription(request.Description);

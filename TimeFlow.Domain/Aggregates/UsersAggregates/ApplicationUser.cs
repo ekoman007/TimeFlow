@@ -1,9 +1,8 @@
-﻿using TimeFlow.Domain.Aggregates.UsersAggregates.Roles;
-using TimeFlow.SharedKernel;
+﻿using TimeFlow.SharedKernel;
 
 namespace TimeFlow.Domain.Aggregates.UsersAggregates
 {
-    public class User : AggregateRoot<int>
+    public class ApplicationUser : AggregateRoot<int>
     {
         public string Username { get; private set; }
         public string Email { get; private set; }
@@ -11,12 +10,12 @@ namespace TimeFlow.Domain.Aggregates.UsersAggregates
         public bool IsActive { get; private set; } = false;
         public DateTime? LastLogin { get; private set; }
         public int RoleId { get; private set; }
-        public Role Role { get; private set; }
+        public virtual Role Role { get; private set; }
 
         // Static factory method
-        public static User Create(string username, string email, string passwordHash, int roleId)
+        public static ApplicationUser Create(string username, string email, string passwordHash, int roleId)
         {
-            var user = new User
+            var user = new ApplicationUser
             {
                 Username = username,
                 Email = email,
@@ -55,6 +54,10 @@ namespace TimeFlow.Domain.Aggregates.UsersAggregates
         public void Activate()
         {
             IsActive = true;
+        }
+        public void DeActivate()
+        {
+            IsActive = false;
         }
 
         private void ValidateUser()

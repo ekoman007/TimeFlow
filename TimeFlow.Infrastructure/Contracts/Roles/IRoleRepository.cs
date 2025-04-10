@@ -1,4 +1,4 @@
-﻿using TimeFlow.Domain.Aggregates.UsersAggregates.Roles;
+﻿using TimeFlow.Domain.Aggregates.UsersAggregates;
 
 namespace TimeFlow.Infrastructure.Contracts.Roles
 {

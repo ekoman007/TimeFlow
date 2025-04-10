@@ -31,17 +31,14 @@ namespace TimeFlow.Api.Controllers
         {
             return await Mediator.Send(command).ConfigureAwait(false);
         }
+
+
         [HttpPost("delete")]
         public async Task<GeneralResponse<int>> DeleteRole([FromBody] DeleteRoleCommand command)
         {
             return await Mediator.Send(command).ConfigureAwait(false);
         }
-
-        //[HttpGet]
-        //public async Task<GeneralResponse<IEnumerable<RolesModel>>> GetCustomers()
-        //{
-        //    return await Mediator.Send(new RoleListQuery()).ConfigureAwait(false);
-        //}
+         
         [HttpGet]
         public async Task<GeneralResponse<IEnumerable<RolesModel>>> GetRoles([FromQuery] RoleListQuery query)
         {

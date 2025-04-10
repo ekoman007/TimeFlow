@@ -23,7 +23,7 @@ namespace TimeFlow.Infrastructure.Security
             _expiryMinutes = int.Parse(config["JwtSettings:ExpiryMinutes"]);
         }
 
-        public string GenerateToken(User user)
+        public string GenerateToken(ApplicationUser user)
         {
             var claims = new[]
             {

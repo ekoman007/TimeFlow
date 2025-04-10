@@ -6,7 +6,7 @@ using TimeFlow.Infrastructure.Database;
 
 namespace TimeFlow.Infrastructure.Repositories
 {
-    public class UserRepository : GenericRepository<User, int>, IUserRepository
+    public class UserRepository : GenericRepository<ApplicationUser, int>, IUserRepository
     {
         private readonly TimeFlowDbContext _dbContext;
 
@@ -17,11 +17,11 @@ namespace TimeFlow.Infrastructure.Repositories
 
         public async Task<bool> ExistsByEmailAsync(string email, CancellationToken cancellationToken)
         {
-            return await _dbContext.Users.AnyAsync(u => u.Email == email, cancellationToken);
+            return await _dbContext.ApplicationUsers.AnyAsync(u => u.Email == email, cancellationToken);
         }
-        public async Task<User?> GetUserByEmailAsync(string email, CancellationToken cancellationToken)
+        public async Task<ApplicationUser?> GetUserByEmailAsync(string email, CancellationToken cancellationToken)
         {
-            return await _dbContext.Users
+            return await _dbContext.ApplicationUsers
                 .FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
         } 
     }

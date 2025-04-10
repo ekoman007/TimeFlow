@@ -1,13 +1,8 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TimeFlow.Application.Features.Roles.DTOs;
 using TimeFlow.Application.Responses;
-using TimeFlow.Domain.Aggregates.UsersAggregates.Roles;
+using TimeFlow.Domain.Aggregates.UsersAggregates;
 using TimeFlow.Infrastructure.Contracts.Roles;
 
 namespace TimeFlow.Application.Features.Roles.Queries

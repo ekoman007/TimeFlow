@@ -7,7 +7,7 @@ namespace TimeFlow.Infrastructure.Security
 {
     public class PasswordHasher : IPasswordHasher
     {
-        private readonly PasswordHasher<User> _passwordHasher = new PasswordHasher<User>();
+        private readonly PasswordHasher<ApplicationUser> _passwordHasher = new PasswordHasher<ApplicationUser>();
 
         public string HashPassword(string password)
         {

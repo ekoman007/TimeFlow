@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TimeFlow.Domain.Aggregates.UsersAggregates.Roles; 
+using TimeFlow.Domain.Aggregates.UsersAggregates;
 using TimeFlow.Infrastructure.Contracts.Roles;
 using TimeFlow.Infrastructure.Database;
 
