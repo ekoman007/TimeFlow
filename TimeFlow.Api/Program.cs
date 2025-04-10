@@ -6,11 +6,14 @@ using Serilog;
 using System.Text;
 using TimeFlow.Api.Middlewares;
 using TimeFlow.Application.Commands;
+using TimeFlow.Application.Commands.Roles;
 using TimeFlow.Domain.Repositories;
 using TimeFlow.Domain.Security;
 using TimeFlow.Infrastructure.Contracts;
+using TimeFlow.Infrastructure.Contracts.Roles;
 using TimeFlow.Infrastructure.Database;
 using TimeFlow.Infrastructure.Repositories;
+using TimeFlow.Infrastructure.Repositories.Roles;
 using TimeFlow.Infrastructure.Security;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -71,6 +74,7 @@ builder.Services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 
 //builder.Services.AddSingleton<IUserRegisteredPublisher, UserRegisteredPublisher>();
 
@@ -81,6 +85,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 //builder.Services.AddMediatR(typeof(LoginUserCommand).Assembly);
 //builder.Services.AddMediatR(typeof(AddUserCommand).Assembly);
 builder.Services.AddMediatR(typeof(LoginCommand).Assembly);
+builder.Services.AddMediatR(typeof(CreateRoleCommand).Assembly);
 
 // Konfigurimi i JWT Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
