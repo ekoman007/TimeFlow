@@ -6,7 +6,6 @@ using TimeFlow.Domain.Aggregates.UsersAggregates;
 using TimeFlow.Domain.Repositories;
 using TimeFlow.Domain.Security;
 using TimeFlow.Infrastructure.Contracts;
-using TimeFlow.Infrastructure.Contracts.Roles;
 
 public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, GeneralResponse<int>>
 {

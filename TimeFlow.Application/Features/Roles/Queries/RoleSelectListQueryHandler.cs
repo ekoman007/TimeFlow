@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using TimeFlow.Application.Features.Roles.DTOs;
 using TimeFlow.Application.Queries.Roles.TimeFlow.Application.Queries.Roles;
-using TimeFlow.Infrastructure.Contracts.Roles;
+using TimeFlow.Infrastructure.Contracts;
 
 namespace TimeFlow.Application.Features.Roles.Queries
 {

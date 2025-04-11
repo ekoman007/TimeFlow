@@ -11,7 +11,8 @@ namespace TimeFlow.Domain.Aggregates.UsersAggregates
     {
         public string Name { get; set; }
         public string Address { get; set; }
-        public string ContactNumber { get; set; }
-        public ICollection<UserDetails> UserDetails { get; set; }   
+        public string ContactNumber { get; set; }    
+        public int UserDetailsId { get; set; }    
+        public ApplicationUserDetails UserDetails { get; set; }    
     }
 }

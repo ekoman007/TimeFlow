@@ -7,7 +7,7 @@ using TimeFlow.Infrastructure.Contracts;
 
 namespace TimeFlow.Application.Features.User.Query
 {
-    public class UserListQueryHandler : IRequestHandler<UserListQuery, GeneralResponse<IEnumerable<UserModel>>>
+    public class UserListQueryHandler : IRequestHandler<UserListQuery, GeneralResponse<IEnumerable<ApplicationUserModel>>>
     {
         private readonly IUserRepository _userRepository;
 
@@ -16,10 +16,38 @@ namespace TimeFlow.Application.Features.User.Query
             _userRepository = userRepository;
         }
 
-        public async Task<GeneralResponse<IEnumerable<UserModel>>> Handle(UserListQuery query, CancellationToken cancellationToken = default)
+        public async Task<GeneralResponse<IEnumerable<ApplicationUserModel>>> Handle(UserListQuery query, CancellationToken cancellationToken = default)
         {
-
+            // Krijo një queryable që mund të filtrohet
             IQueryable<ApplicationUser> queryable = _userRepository.Get(cancellationToken: cancellationToken);
+
+            // Filtrimi për Username
+            if (!string.IsNullOrEmpty(query.Username))
+            {
+                queryable = queryable.Where(u => u.Username.Contains(query.Username));
+            }
+
+            // Filtrimi për Email
+            if (!string.IsNullOrEmpty(query.Email))
+            {
+                queryable = queryable.Where(u => u.Email.Contains(query.Email));
+            }
+
+            // Filtrimi për IsActive
+            if (query.IsActive.HasValue)
+            {
+                queryable = queryable.Where(u => u.IsActive == query.IsActive.Value);
+            }
+
+            // Filtrimi për RoleId
+            if (query.RoleId.HasValue)
+            {
+                queryable = queryable.Where(u => u.RoleId == query.RoleId.Value);
+            }
+             
+
+
+           // IQueryable<ApplicationUser> queryable = _userRepository.Get(cancellationToken: cancellationToken);
              
             var totalCount = await queryable.CountAsync(cancellationToken);
              
@@ -29,7 +57,7 @@ namespace TimeFlow.Application.Features.User.Query
                 .ToListAsync(cancellationToken);
 
             var readModel = users.Select(x =>
-                new UserModel
+                new ApplicationUserModel
                 {
                     Id = x.Id,
                     Username = x.Username,     
@@ -38,7 +66,7 @@ namespace TimeFlow.Application.Features.User.Query
                     RoleId = x.RoleId,        
                 });
 
-            return new GeneralResponse<IEnumerable<UserModel>>
+            return new GeneralResponse<IEnumerable<ApplicationUserModel>>
             {
                 Success = true,
                 Message = "User list fetched successfully",

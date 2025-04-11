@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using TimeFlow.Application.Commands.Roles.Command;
 using TimeFlow.Application.Responses;
 using TimeFlow.Domain.Repositories;
-using TimeFlow.Infrastructure.Contracts.Roles;
+using TimeFlow.Infrastructure.Contracts;
 
 namespace TimeFlow.Application.Features.Roles.Commands
 {

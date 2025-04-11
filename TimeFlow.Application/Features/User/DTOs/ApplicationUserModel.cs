@@ -2,7 +2,7 @@
 
 namespace TimeFlow.Application.Features.User.DTOs
 {
-    public class UserModel
+    public class ApplicationUserModel
     {
         public int Id { get;  set; }
         public string Username { get;  set; }

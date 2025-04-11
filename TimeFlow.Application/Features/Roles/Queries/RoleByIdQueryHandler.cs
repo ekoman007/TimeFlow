@@ -1,7 +1,7 @@
-﻿using MediatR; 
+﻿using MediatR;
 using TimeFlow.Application.Features.Roles.DTOs;
-using TimeFlow.Application.Responses; 
-using TimeFlow.Infrastructure.Contracts.Roles;
+using TimeFlow.Application.Responses;
+using TimeFlow.Infrastructure.Contracts;
 
 namespace TimeFlow.Application.Features.Roles.Queries
 {

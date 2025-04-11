@@ -5,7 +5,7 @@ using TimeFlow.Infrastructure.Contracts;
 
 namespace TimeFlow.Application.Features.User.Query
 {
-    public class UserByIdQueryHandler : IRequestHandler<UserByIdQuery, GeneralResponse<UserModel>>
+    public class UserByIdQueryHandler : IRequestHandler<UserByIdQuery, GeneralResponse<ApplicationUserModel>>
     {
         private readonly IUserRepository _userRepository;
 
@@ -14,14 +14,14 @@ namespace TimeFlow.Application.Features.User.Query
             _userRepository = userRepository;
         }
 
-        public async Task<GeneralResponse<UserModel>> Handle(UserByIdQuery query, CancellationToken cancellationToken = default)
+        public async Task<GeneralResponse<ApplicationUserModel>> Handle(UserByIdQuery query, CancellationToken cancellationToken = default)
         {
             // Merrni përdoruesin me ID nga repository
             var user = await _userRepository.GetById(query.Id, cancellationToken: cancellationToken).ConfigureAwait(false);
 
             if (user == null)
             {
-                return new GeneralResponse<UserModel>
+                return new GeneralResponse<ApplicationUserModel>
                 {
                     Success = false,
                     Message = "User not found"
@@ -29,7 +29,7 @@ namespace TimeFlow.Application.Features.User.Query
             }
 
             // Kthejeni në modelin e duhur
-            var userModel = new UserModel
+            var userModel = new ApplicationUserModel
             {
                 Id = user.Id,
                 Username = user.Username,  
@@ -39,7 +39,7 @@ namespace TimeFlow.Application.Features.User.Query
                 RoleId = user.RoleId,  
             };
 
-            return new GeneralResponse<UserModel>
+            return new GeneralResponse<ApplicationUserModel>
             {
                 Success = true,
                 Message = "User found successfully", // Mesazhi i saktë për përdoruesin

@@ -2,14 +2,12 @@
 using TimeFlow.Application.Features.Login.Commands;
 using TimeFlow.Domain.Repositories;
 using TimeFlow.Domain.Security;
-using TimeFlow.Infrastructure.Contracts.Roles;
 using TimeFlow.Infrastructure.Contracts;
-using TimeFlow.Infrastructure.Repositories.Roles;
 using TimeFlow.Infrastructure.Repositories;
 using TimeFlow.Infrastructure.Security;
 
 namespace TimeFlow.Api.Extensions
-{ 
+{
     public static class ServiceRegistrationExtensions
     {
         public static void AddApplicationServices(this IServiceCollection services)
@@ -20,6 +18,7 @@ namespace TimeFlow.Api.Extensions
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IUserDetailsRepository, UserDetailsRepository>();
 
             // Regjistro AutoMapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

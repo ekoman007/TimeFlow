@@ -10,7 +10,7 @@ using TimeFlow.Application.Responses;
 
 namespace TimeFlow.Application.Features.User.Query
 {
-    public class UserByIdQuery : IRequest<GeneralResponse<UserModel>>
+    public class UserByIdQuery : IRequest<GeneralResponse<ApplicationUserModel>>
     {
         public int Id { get; set; }
         public UserByIdQuery(int id)

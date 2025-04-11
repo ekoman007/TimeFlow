@@ -7,6 +7,8 @@ using TimeFlow.Api.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using TimeFlow.SharedKernel;
+using Hellang.Middleware.ProblemDetails;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,22 @@ builder.Host.UseSerilog((context, services, configuration) => configuration
     .Enrich.FromLogContext()
     .Enrich.WithMachineName()
     .Enrich.WithEnvironmentName());
+
+builder.Services.AddProblemDetails(options =>
+{
+    options.IncludeExceptionDetails = (ctx, ex) => false; // nuk kthen stacktrace
+
+    options.Map<DomainException>(ex => new Microsoft.AspNetCore.Mvc.ProblemDetails
+    {
+        Title = "Validation Error",
+        Detail = ex.Message,
+        Status = StatusCodes.Status400BadRequest
+    });
+
+    options.MapToStatusCode<Exception>(StatusCodes.Status500InternalServerError);
+});
+
+
 
 // Regjistro shërbimet e aplikacionit nga file-i i veçantë
 builder.Services.AddApplicationServices();
@@ -105,6 +123,7 @@ if (app.Environment.IsDevelopment())
         c.RoutePrefix = "swagger"; // e bën të hapet te /swagger/index.html
     });
 }
+app.UseProblemDetails(); // përdor middleware-in
 
 app.UseHttpsRedirection();
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TimeFlow.Infrastructure.Database;
 
@@ -11,9 +12,11 @@ using TimeFlow.Infrastructure.Database;
 namespace TimeFlow.Infrastructure.Migrations
 {
     [DbContext(typeof(TimeFlowDbContext))]
-    partial class TimeFlowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250410192808_changeUserRelationShqip")]
+    partial class changeUserRelationShqip
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,62 +68,6 @@ namespace TimeFlow.Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("ApplicationUsers");
-                });
-
-            modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.ApplicationUserDetails", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateOfBirth")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProfilePicture")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Street")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ZipCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ApplicationUserDetails");
                 });
 
             modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.Company", b =>
@@ -189,6 +136,49 @@ namespace TimeFlow.Infrastructure.Migrations
                     b.ToTable("Roles");
                 });
 
+            modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.UserDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfilePicture")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserDetails");
+                });
+
             modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.ApplicationUser", b =>
                 {
                     b.HasOne("TimeFlow.Domain.Aggregates.UsersAggregates.Role", "Role")
@@ -202,7 +192,7 @@ namespace TimeFlow.Infrastructure.Migrations
 
             modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.Company", b =>
                 {
-                    b.HasOne("TimeFlow.Domain.Aggregates.UsersAggregates.ApplicationUserDetails", "UserDetails")
+                    b.HasOne("TimeFlow.Domain.Aggregates.UsersAggregates.UserDetails", "UserDetails")
                         .WithMany("Companies")
                         .HasForeignKey("UserDetailsId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -211,14 +201,25 @@ namespace TimeFlow.Infrastructure.Migrations
                     b.Navigation("UserDetails");
                 });
 
-            modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.ApplicationUserDetails", b =>
+            modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.UserDetails", b =>
                 {
-                    b.Navigation("Companies");
+                    b.HasOne("TimeFlow.Domain.Aggregates.UsersAggregates.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.Role", b =>
                 {
                     b.Navigation("ApplicationUsers");
+                });
+
+            modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.UserDetails", b =>
+                {
+                    b.Navigation("Companies");
                 });
 #pragma warning restore 612, 618
         }

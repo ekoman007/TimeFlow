@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using TimeFlow.Application.Features.Roles.DTOs;
 using TimeFlow.Application.Responses;
 using TimeFlow.Domain.Aggregates.UsersAggregates;
-using TimeFlow.Infrastructure.Contracts.Roles;
+using TimeFlow.Infrastructure.Contracts;
 
 namespace TimeFlow.Application.Features.Roles.Queries
 {

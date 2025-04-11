@@ -19,6 +19,12 @@ namespace TimeFlow.Infrastructure.Repositories
         {
             return await _dbContext.ApplicationUsers.AnyAsync(u => u.Email == email, cancellationToken);
         }
+
+        public async Task<bool> ExistsByIDAsync(int Id, CancellationToken cancellationToken)
+        {
+            return await _dbContext.ApplicationUsers.AnyAsync(u => u.Id == Id, cancellationToken);
+        }
+
         public async Task<ApplicationUser?> GetUserByEmailAsync(string email, CancellationToken cancellationToken)
         {
             return await _dbContext.ApplicationUsers

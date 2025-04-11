@@ -10,6 +10,7 @@ namespace TimeFlow.SharedKernel
     {
         public TKey Id { get; protected set; }
         public EntityStatus Status { get; protected set; } = EntityStatus.Active;
+        public bool? IsActive { get; protected set; } = false;
         public DateTime CreatedOn { get; protected set; }
         public DateTime? ModifiedOn { get; protected set; }
 

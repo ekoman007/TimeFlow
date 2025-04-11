@@ -6,6 +6,7 @@ namespace TimeFlow.Infrastructure.Contracts
     public interface IUserRepository : IRepository<ApplicationUser, int>
     {
         Task<bool> ExistsByEmailAsync(string email, CancellationToken cancellationToken);
+        Task<bool> ExistsByIDAsync(int Id, CancellationToken cancellationToken);
         Task<ApplicationUser?> GetUserByEmailAsync(string email, CancellationToken cancellationToken);
     }
 }
