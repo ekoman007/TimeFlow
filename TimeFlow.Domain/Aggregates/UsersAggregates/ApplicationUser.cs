@@ -6,8 +6,7 @@ namespace TimeFlow.Domain.Aggregates.UsersAggregates
     {
         public string Username { get; private set; }
         public string Email { get; private set; }
-        public string PasswordHash { get; private set; }
-        public bool IsActive { get; private set; } = false;
+        public string PasswordHash { get; private set; } 
         public DateTime? LastLogin { get; private set; }
         public int RoleId { get; private set; }
         public virtual Role Role { get; private set; }
