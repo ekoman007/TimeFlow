@@ -6,6 +6,8 @@ using TimeFlow.Application.Features.Roles.DTOs;
 using TimeFlow.Application.Features.Roles.Queries;
 using TimeFlow.Application.Features.User.Command;
 using TimeFlow.Application.Features.UserDetails.Commands;
+using TimeFlow.Application.Features.UserDetails.DTOs;
+using TimeFlow.Application.Features.UserDetails.Queries;
 using TimeFlow.Application.Queries.Roles.TimeFlow.Application.Queries.Roles;
 using TimeFlow.Application.Responses;
 
@@ -34,25 +36,25 @@ namespace TimeFlow.Api.Controllers
         }
 
 
-        //[HttpPost("delete")]
-        //public async Task<GeneralResponse<int>> DeleteRole([FromBody] DeleteRoleCommand command)
-        //{
-        //    return await Mediator.Send(command).ConfigureAwait(false);
-        //}
+        [HttpPost("delete")]
+        public async Task<GeneralResponse<int>> DeleteRole([FromBody] DeleteUserDetailsCommand command)
+        {
+            return await Mediator.Send(command).ConfigureAwait(false);
+        }
 
-        //[HttpGet]
-        //public async Task<GeneralResponse<IEnumerable<RolesModel>>> GetRoles([FromQuery] RoleListQuery query)
-        //{
-        //    return await Mediator.Send(query).ConfigureAwait(false);
-        //}
+        [HttpGet]
+        public async Task<GeneralResponse<IEnumerable<UserDetailsModel>>> GetRoles([FromQuery] UserDetailsListQuery query)
+        {
+            return await Mediator.Send(query).ConfigureAwait(false);
+        }
 
 
-        //[HttpGet("{id}")]
-        //public async Task<GeneralResponse<RolesModel>> GetRoleById(int id)
-        //{
-        //    var query = new RoleByIdQuery(id);
-        //    return await Mediator.Send(query).ConfigureAwait(false);
-        //}
+        [HttpGet("{id}")]
+        public async Task<GeneralResponse<UserDetailsModel>> GetUserDetailsById(int id)
+        {
+            var query = new UserDetailsByIdQuery(id);
+            return await Mediator.Send(query).ConfigureAwait(false);
+        }
 
         //[HttpGet("select-list")]
         //public async Task<ActionResult<List<RoleSelectListModel>>> GetRoleSelectList()

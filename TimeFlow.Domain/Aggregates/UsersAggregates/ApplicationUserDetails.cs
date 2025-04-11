@@ -83,8 +83,18 @@ namespace TimeFlow.Domain.Aggregates.UsersAggregates
             ZipCode = zipCode;
             ValidateUserDetails();
         }
-        
-        
+
+        public void ChangeToActive()
+        {
+            IsActive =true;
+            ValidateUserDetails();
+        }
+
+        public void ChangeToDeActive()
+        {
+            IsActive = false;
+            ValidateUserDetails();
+        }
 
         public void ChangeStatusToActive()
         {
