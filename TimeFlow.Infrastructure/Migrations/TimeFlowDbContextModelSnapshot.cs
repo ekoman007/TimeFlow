@@ -22,6 +22,66 @@ namespace TimeFlow.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("ApplicationUserDetailsId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("BusinessProfileId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPrimary")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Latitude")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Longitude")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserDetailsId");
+
+                    b.HasIndex("BusinessProfileId");
+
+                    b.ToTable("Addresses");
+                });
+
             modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.ApplicationUser", b =>
                 {
                     b.Property<int>("Id")
@@ -75,14 +135,6 @@ namespace TimeFlow.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -110,23 +162,15 @@ namespace TimeFlow.Infrastructure.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<string>("Street")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int");
-
-                    b.Property<string>("ZipCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("ApplicationUserDetails");
                 });
 
-            modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.Company", b =>
+            modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.BusinessProfile", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -134,32 +178,134 @@ namespace TimeFlow.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Address")
+                    b.Property<string>("BusinessName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ContactNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("ModifiedDate")
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IndustryId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LogoUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserDetailsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Website")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IndustryId");
+
+                    b.HasIndex("UserDetailsId");
+
+                    b.ToTable("BusinessProfiles");
+                });
+
+            modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IndustryId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserDetailsId")
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserDetailsId");
+                    b.HasIndex("IndustryId");
 
-                    b.ToTable("Company");
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.Industry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Industries");
                 });
 
             modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.Role", b =>
@@ -195,6 +341,96 @@ namespace TimeFlow.Infrastructure.Migrations
                     b.ToTable("Roles");
                 });
 
+            modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.Service", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AdditionalInfo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Availability")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("BusinessProfileId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Currency")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("DiscountPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("DurationInMinutes")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("MaxBookingsPerDay")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("RequiredMaterials")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ServiceCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ServiceType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Tags")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BusinessProfileId");
+
+                    b.ToTable("Services");
+                });
+
+            modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.Address", b =>
+                {
+                    b.HasOne("TimeFlow.Domain.Aggregates.UsersAggregates.ApplicationUserDetails", "ApplicationUserDetails")
+                        .WithMany("Addresses")
+                        .HasForeignKey("ApplicationUserDetailsId");
+
+                    b.HasOne("TimeFlow.Domain.Aggregates.UsersAggregates.BusinessProfile", "BusinessProfile")
+                        .WithMany("Addresses")
+                        .HasForeignKey("BusinessProfileId");
+
+                    b.Navigation("ApplicationUserDetails");
+
+                    b.Navigation("BusinessProfile");
+                });
+
             modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.ApplicationUser", b =>
                 {
                     b.HasOne("TimeFlow.Domain.Aggregates.UsersAggregates.Role", "Role")
@@ -206,20 +442,66 @@ namespace TimeFlow.Infrastructure.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.Company", b =>
+            modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.BusinessProfile", b =>
                 {
+                    b.HasOne("TimeFlow.Domain.Aggregates.UsersAggregates.Industry", "Industries")
+                        .WithMany("BusinessProfiles")
+                        .HasForeignKey("IndustryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("TimeFlow.Domain.Aggregates.UsersAggregates.ApplicationUserDetails", "UserDetails")
-                        .WithMany("Companies")
+                        .WithMany("BusinessProfile")
                         .HasForeignKey("UserDetailsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Industries");
+
                     b.Navigation("UserDetails");
+                });
+
+            modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.Category", b =>
+                {
+                    b.HasOne("TimeFlow.Domain.Aggregates.UsersAggregates.Industry", "Industry")
+                        .WithMany("Categories")
+                        .HasForeignKey("IndustryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Industry");
+                });
+
+            modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.Service", b =>
+                {
+                    b.HasOne("TimeFlow.Domain.Aggregates.UsersAggregates.BusinessProfile", "BusinessProfile")
+                        .WithMany("Services")
+                        .HasForeignKey("BusinessProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BusinessProfile");
                 });
 
             modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.ApplicationUserDetails", b =>
                 {
-                    b.Navigation("Companies");
+                    b.Navigation("Addresses");
+
+                    b.Navigation("BusinessProfile");
+                });
+
+            modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.BusinessProfile", b =>
+                {
+                    b.Navigation("Addresses");
+
+                    b.Navigation("Services");
+                });
+
+            modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.Industry", b =>
+                {
+                    b.Navigation("BusinessProfiles");
+
+                    b.Navigation("Categories");
                 });
 
             modelBuilder.Entity("TimeFlow.Domain.Aggregates.UsersAggregates.Role", b =>

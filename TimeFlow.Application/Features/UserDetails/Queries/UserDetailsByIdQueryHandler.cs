@@ -40,11 +40,7 @@ namespace TimeFlow.Application.Features.UserDetails.Queries
             var userModel = new UserDetailsModel
             {
                 Id = userDetails.Id,
-                FullName = userDetails.FullName,
-                Street = userDetails.Street,
-                City = userDetails.City,
-                Country = userDetails.Country,
-                ZipCode = userDetails.ZipCode,
+                FullName = userDetails.FullName, 
                 PhoneNumber = userDetails.PhoneNumber,
                 DateOfBirth = userDetails.DateOfBirth,
                 UserId = userDetails.UserId,

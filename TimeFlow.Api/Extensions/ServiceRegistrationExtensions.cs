@@ -19,6 +19,12 @@ namespace TimeFlow.Api.Extensions
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IUserDetailsRepository, UserDetailsRepository>();
+            services.AddScoped<IIndustryRepository, IndustryRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<IBussinesProfileRepository, BussinesProfileRepository>();
+            services.AddScoped<IServiceRepository, ServiceRepository>();
+
 
             // Regjistro AutoMapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

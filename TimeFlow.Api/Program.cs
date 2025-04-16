@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using TimeFlow.SharedKernel;
 using Hellang.Middleware.ProblemDetails;
+using TimeFlow.Infrastructure.SeedData;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -111,7 +112,10 @@ builder.Services.AddCors(options =>
     });
 });
 
+
 var app = builder.Build();
+
+await app.SeedDatabaseAsync();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

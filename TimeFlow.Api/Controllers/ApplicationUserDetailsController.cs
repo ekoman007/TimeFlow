@@ -24,7 +24,7 @@ namespace TimeFlow.Api.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<GeneralResponse<int>> RoleCreate([FromBody] CreateUserDetailsCommand command)
+        public async Task<GeneralResponse<int>> UserApplicationCreate([FromBody] CreateUserDetailsCommand command)
         {
             return await Mediator.Send(command).ConfigureAwait(false);
         }
@@ -37,13 +37,13 @@ namespace TimeFlow.Api.Controllers
 
 
         [HttpPost("delete")]
-        public async Task<GeneralResponse<int>> DeleteRole([FromBody] DeleteUserDetailsCommand command)
+        public async Task<GeneralResponse<int>> DeleteUserApplication([FromBody] DeleteUserDetailsCommand command)
         {
             return await Mediator.Send(command).ConfigureAwait(false);
         }
 
         [HttpGet]
-        public async Task<GeneralResponse<IEnumerable<UserDetailsModel>>> GetRoles([FromQuery] UserDetailsListQuery query)
+        public async Task<GeneralResponse<IEnumerable<UserDetailsModel>>> GetUserApplication([FromQuery] UserDetailsListQuery query)
         {
             return await Mediator.Send(query).ConfigureAwait(false);
         }

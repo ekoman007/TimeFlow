@@ -21,7 +21,7 @@ namespace TimeFlow.Api.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<GeneralResponse<int>> PostCreate([FromBody] CreateUserCommand command)
+        public async Task<GeneralResponse<int>> UserCreate([FromBody] CreateUserCommand command)
         {
             return await Mediator.Send(command).ConfigureAwait(false);
         }
@@ -40,13 +40,13 @@ namespace TimeFlow.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<GeneralResponse<IEnumerable<ApplicationUserModel>>> GetRoles([FromQuery] UserListQuery query)
+        public async Task<GeneralResponse<IEnumerable<ApplicationUserModel>>> GetUsers([FromQuery] UserListQuery query)
         {
             return await Mediator.Send(query).ConfigureAwait(false);
         }
 
         [HttpGet("select-list")]
-        public async Task<ActionResult<List<ApplicationUserModel>>> GetRoleSelectList()
+        public async Task<ActionResult<List<ApplicationUserModel>>> GetSelectList()
         {
             var result = await Mediator.Send(new UserSelectListQuery());
             return Ok(result);

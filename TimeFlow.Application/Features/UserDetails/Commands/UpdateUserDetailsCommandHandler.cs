@@ -25,15 +25,11 @@ namespace TimeFlow.Application.Features.UserDetails.Commands
         public async Task<GeneralResponse<int>> Handle(UpdateUserDetailsCommand request, CancellationToken cancellationToken)
         {
             ArgumentNullException.ThrowIfNull(request);
-
+            //Duhet me i shtu fushat tjera edhe me check nese id nuk ekziston me gjujt error
             var userDetailsExists = await _userDetailsRepository.GetById(request.Id, cancellationToken: cancellationToken);
 
             userDetailsExists.ChangeFullName(request.FullName);
-            userDetailsExists.ChangePhoneNumber(request.PhoneNumber);
-            userDetailsExists.ChangeStreet(request.Street);
-            userDetailsExists.ChangeCity(request.City);
-            userDetailsExists.ChangeCountry(request.Country);
-            userDetailsExists.ChangeZipCode(request.ZipCode);
+            userDetailsExists.ChangePhoneNumber(request.PhoneNumber); 
             userDetailsExists.ChangeDateOfBirth(request.DateOfBirth);
             userDetailsExists.ChangeProfilePicture(request.ProfilePicture);
 

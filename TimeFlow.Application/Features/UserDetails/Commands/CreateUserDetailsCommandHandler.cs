@@ -27,6 +27,7 @@ namespace TimeFlow.Application.Features.UserDetails.Commands
         public async Task<GeneralResponse<int>> Handle(CreateUserDetailsCommand request, CancellationToken cancellationToken)
         {
             ArgumentNullException.ThrowIfNull(request);
+            // ketu duhet nje check qe nese user nuk eshte active mos me leju mu regjistru userdetails
             var checkUserId = await _userRepository.ExistsByIDAsync(request.UserId, cancellationToken: cancellationToken);
             if (!checkUserId)
             {
@@ -37,6 +38,7 @@ namespace TimeFlow.Application.Features.UserDetails.Commands
                 };
             }
 
+            //KEtu duhet me check me id a ekziston jo me email ose me email
             var userExists = await _userDetailsRepository.GetUserDetailsByNameAsync(request.FullName, cancellationToken);
             if (userExists)
             {
@@ -47,8 +49,7 @@ namespace TimeFlow.Application.Features.UserDetails.Commands
                 };
             }
 
-            ApplicationUserDetails userDetails = ApplicationUserDetails.Create(request.FullName,
-                request.Street,request.City, request.Country, request.ZipCode,
+            ApplicationUserDetails userDetails = ApplicationUserDetails.Create(request.FullName, 
                 request.PhoneNumber, request.DateOfBirth, request.ProfilePicture, request.UserId);
 
             await _userDetailsRepository.Add(userDetails, cancellationToken).ConfigureAwait(false);
