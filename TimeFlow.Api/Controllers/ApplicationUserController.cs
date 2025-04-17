@@ -4,6 +4,7 @@ using TimeFlow.Application.Features.User.Command;
 using TimeFlow.Application.Features.User.DTOs;
 using TimeFlow.Application.Features.User.Queries;
 using TimeFlow.Application.Features.User.Query;
+using TimeFlow.Application.Paged;
 using TimeFlow.Application.Queries.Roles.TimeFlow.Application.Queries.Roles;
 using TimeFlow.Application.Responses;
 
@@ -40,7 +41,7 @@ namespace TimeFlow.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<GeneralResponse<IEnumerable<ApplicationUserModel>>> GetUsers([FromQuery] UserListQuery query)
+        public async Task<GeneralResponse<PagedResult<ApplicationUserModel>>> GetUsers([FromQuery] UserListQuery query)
         {
             return await Mediator.Send(query).ConfigureAwait(false);
         }

@@ -23,7 +23,7 @@ namespace TimeFlow.Application.Features.Services.Commands
 
             var serviceExists = await _serviceRepository.GetById(request.Id, cancellationToken: cancellationToken);
 
-            serviceExists.ChangeAddress(request.Name, request.Description,request.Price,request.DurationInMinutes,
+            serviceExists.ChangeService(request.Name, request.Description,request.Price,request.DurationInMinutes,
                                         request.ServiceType, request.Tags, request.MaxBookingsPerDay, request.AdditionalInfo
                                         , request.DiscountPrice, request.Availability, request.ServiceCode, request.RequiredMaterials
                                         , request.Currency, request.ImageUrl, request.BusinessProfileId); 

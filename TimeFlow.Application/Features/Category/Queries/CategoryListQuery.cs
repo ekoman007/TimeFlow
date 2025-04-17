@@ -1,10 +1,11 @@
 ﻿using MediatR;
-using TimeFlow.Application.Features.Category.DTOs; 
+using TimeFlow.Application.Features.Category.DTOs;
+using TimeFlow.Application.Paged;
 using TimeFlow.Application.Responses;
 
 namespace TimeFlow.Application.Features.Category.Queries
 {
-    public class CategoryListQuery : IRequest<GeneralResponse<IEnumerable<CategoryModel>>>
+    public class CategoryListQuery : IRequest<GeneralResponse<PagedResult<CategoryModel>>>
     {
         public int PageNumber { get; set; }
         public int PageSize { get; set; }

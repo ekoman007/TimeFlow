@@ -7,6 +7,7 @@ using TimeFlow.Application.Features.Category.Queries;
 using TimeFlow.Application.Features.Industry.Commands;
 using TimeFlow.Application.Features.Industry.DTOs;
 using TimeFlow.Application.Features.Industry.Queris;
+using TimeFlow.Application.Paged;
 using TimeFlow.Application.Responses;
 
 namespace TimeFlow.Api.Controllers
@@ -47,7 +48,7 @@ namespace TimeFlow.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<GeneralResponse<IEnumerable<CategoryModel>>> GetCategories([FromQuery] CategoryListQuery query)
+        public async Task<GeneralResponse<PagedResult<CategoryModel>>> GetCategories([FromQuery] CategoryListQuery query)
         {
             return await Mediator.Send(query).ConfigureAwait(false);
         }

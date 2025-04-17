@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using TimeFlow.Application.Features.BussinesProfile.Commands;
 using TimeFlow.Application.Features.BussinesProfile.DTOs;
 using TimeFlow.Application.Features.BussinesProfile.Queries;
-using TimeFlow.Application.Features.Category.Commands; 
+using TimeFlow.Application.Features.Category.Commands;
+using TimeFlow.Application.Paged;
 using TimeFlow.Application.Responses;
 
 namespace TimeFlow.Api.Controllers
@@ -44,7 +45,7 @@ namespace TimeFlow.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<GeneralResponse<IEnumerable<BussinesProfileModel>>> GetCategories([FromQuery] BusinessProfileListQuery query)
+        public async Task<GeneralResponse<PagedResult<BussinesProfileModel>>> GetCategories([FromQuery] BusinessProfileListQuery query)
         {
             return await Mediator.Send(query).ConfigureAwait(false);
         }

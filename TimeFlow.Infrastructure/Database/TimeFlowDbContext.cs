@@ -14,6 +14,12 @@ namespace TimeFlow.Infrastructure.Database
         public DbSet<Service> Services { get; set; } 
         public DbSet<Address> Addresses { get; set; } 
         public DbSet<BusinessProfile> BusinessProfiles { get; set; } 
+        public DbSet<Staff> Staffs { get; set; } 
+        public DbSet<WorkSchedule> WorkSchedules { get; set; } 
+        public DbSet<WorkShift> WorkShifts { get; set; } 
+        public DbSet<Guest> Guest { get; set; } 
+        public DbSet<Appointment> Appointments { get; set; } 
+        public DbSet<AppointmentHistory> AppointmentAppointmentHistories { get; set; } 
 
         public TimeFlowDbContext(DbContextOptions<TimeFlowDbContext> options)
             : base(options)

@@ -14,7 +14,8 @@ namespace TimeFlow.Infrastructure.SeedData
             var role = new List<Role>
             {
                 Role.Create("Admin", "Admin main"),
-                Role.Create("BussinesAdmin", "Bussines admin")
+                Role.Create("BussinesAdmin", "Bussines admin"),
+                Role.Create("UserEmployee", "User employee")
             };
 
             context.Roles.AddRange(role);

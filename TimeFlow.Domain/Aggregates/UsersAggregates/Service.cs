@@ -57,7 +57,7 @@ namespace TimeFlow.Domain.Aggregates.UsersAggregates
             return service;
         }
 
-        public void ChangeAddress(string name, string description,
+        public void ChangeService(string name, string description,
                           decimal price, int durationInMinute,
                           string? serviceType, string? tags,
                           int? maxBookingsPerDay, string? additionalInfo,

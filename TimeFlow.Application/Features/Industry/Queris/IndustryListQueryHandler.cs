@@ -1,52 +1,44 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore; 
-using TimeFlow.Application.Features.Industry.DTOs; 
-using TimeFlow.Application.Responses; 
+using TimeFlow.Application.Features.Industry.DTOs;
+using TimeFlow.Application.Features.Industry.Queris;
+using TimeFlow.Application.Paged;
+using TimeFlow.Application.Responses;
+using TimeFlow.Domain.Aggregates.UsersAggregates;
 using TimeFlow.Infrastructure.Contracts;
 
-namespace TimeFlow.Application.Features.Industry.Queris
+public class IndustryListQueryHandler : IRequestHandler<IndustryListQuery, GeneralResponse<PagedResult<IndustryModel>>>
 {
-    public class IndustryListQueryHandler : IRequestHandler<IndustryListQuery, GeneralResponse<IEnumerable<IndustryModel>>>
+    private readonly IIndustryRepository _industryRepository;
+
+    public IndustryListQueryHandler(IIndustryRepository industryRepository)
     {
-        private readonly IIndustryRepository _industryRepository;
+        _industryRepository = industryRepository;
+    }
 
-        public IndustryListQueryHandler(IIndustryRepository industryRepository)
-        {
-            _industryRepository = industryRepository;
-        }
+    public async Task<GeneralResponse<PagedResult<IndustryModel>>> Handle(IndustryListQuery query, CancellationToken cancellationToken = default)
+    {
+        IQueryable<Industry> queryable = _industryRepository.Get(cancellationToken: cancellationToken);
 
-        public async Task<GeneralResponse<IEnumerable<IndustryModel>>> Handle(IndustryListQuery query, CancellationToken cancellationToken = default)
-        {
-            IQueryable<Domain.Aggregates.UsersAggregates.Industry> queryable = _industryRepository.Get(cancellationToken: cancellationToken);
-
-            // Për aplikimin e paginimit
-            var totalCount = await queryable.CountAsync(cancellationToken);
-            var roles = await queryable
-                .Skip((query.PageNumber - 1) * query.PageSize)
-                .Take(query.PageSize)
-                .ToListAsync(cancellationToken);
-
-            var readModel = roles.Select(x =>
-                new IndustryModel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Description = x.Description,
-                    Code = x.Code,
-                    ModifiedOn = x.ModifiedOn, 
-                });
-
-            return new GeneralResponse<IEnumerable<IndustryModel>>
+        // Paginimi dhe mapping me ToPagedResultAsync
+        var pagedResult = await queryable.ToPagedResultAsync(
+            query.PageNumber,
+            query.PageSize,
+            x => new IndustryModel
             {
-                Success = true,
-                Message = "Industry list.",
-                Result = readModel,
-                TotalCount = totalCount,
-                PageSize = query.PageSize,
-                PageNumber = query.PageNumber,
-                TotalPages = (int)Math.Ceiling((double)totalCount / query.PageSize)
-            };
-        }
+                Id = x.Id,
+                Name = x.Name,
+                Description = x.Description,
+                Code = x.Code,
+                ModifiedOn = x.ModifiedOn
+            },
+            cancellationToken
+        );
 
+        return new GeneralResponse<PagedResult<IndustryModel>>
+        {
+            Success = true,
+            Message = "Industry list.",
+            Result = pagedResult
+        };
     }
 }

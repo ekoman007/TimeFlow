@@ -4,7 +4,8 @@ using TimeFlow.Application.Commands.Roles.Command;
 using TimeFlow.Application.Features.Industry.Commands;
 using TimeFlow.Application.Features.Industry.DTOs;
 using TimeFlow.Application.Features.Industry.Queris;
-using TimeFlow.Application.Features.User.Command; 
+using TimeFlow.Application.Features.User.Command;
+using TimeFlow.Application.Paged;
 using TimeFlow.Application.Responses;
 
 namespace TimeFlow.Api.Controllers
@@ -45,7 +46,7 @@ namespace TimeFlow.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<GeneralResponse<IEnumerable<IndustryModel>>> GetIndustry([FromQuery] IndustryListQuery query)
+        public async Task<GeneralResponse<PagedResult<IndustryModel>>> GetIndustry([FromQuery] IndustryListQuery query)
         {
             return await Mediator.Send(query).ConfigureAwait(false);
         }

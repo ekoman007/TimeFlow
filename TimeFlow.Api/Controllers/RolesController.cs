@@ -5,6 +5,7 @@ using TimeFlow.Application.Commands;
 using TimeFlow.Application.Commands.Roles.Command;
 using TimeFlow.Application.Features.Roles.DTOs;
 using TimeFlow.Application.Features.Roles.Queries;
+using TimeFlow.Application.Paged;
 using TimeFlow.Application.Queries.Roles.TimeFlow.Application.Queries.Roles;
 using TimeFlow.Application.Responses;
 
@@ -40,7 +41,7 @@ namespace TimeFlow.Api.Controllers
         }
          
         [HttpGet]
-        public async Task<GeneralResponse<IEnumerable<RolesModel>>> GetRoles([FromQuery] RoleListQuery query)
+        public async Task<GeneralResponse<PagedResult<RolesModel>>> GetRoles([FromQuery] RoleListQuery query)
         {
             return await Mediator.Send(query).ConfigureAwait(false);
         }

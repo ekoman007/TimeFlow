@@ -7,6 +7,7 @@ using TimeFlow.Application.Features.Address.Queries;
 using TimeFlow.Application.Features.Category.Commands;
 using TimeFlow.Application.Features.Category.DTOs;
 using TimeFlow.Application.Features.Category.Queries;
+using TimeFlow.Application.Paged;
 using TimeFlow.Application.Responses;
 
 namespace TimeFlow.Api.Controllers
@@ -47,7 +48,7 @@ namespace TimeFlow.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<GeneralResponse<IEnumerable<AddressModel>>> GetAddress([FromQuery] AddresListQuery query)
+        public async Task<GeneralResponse<PagedResult<AddressModel>>> GetAddress([FromQuery] AddresListQuery query)
         {
             return await Mediator.Send(query).ConfigureAwait(false);
         }

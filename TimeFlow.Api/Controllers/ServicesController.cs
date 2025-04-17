@@ -7,6 +7,7 @@ using TimeFlow.Application.Features.Category.Queries;
 using TimeFlow.Application.Features.Services.Commands;
 using TimeFlow.Application.Features.Services.DTOs;
 using TimeFlow.Application.Features.Services.Queries;
+using TimeFlow.Application.Paged;
 using TimeFlow.Application.Responses;
 
 namespace TimeFlow.Api.Controllers
@@ -47,7 +48,7 @@ namespace TimeFlow.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<GeneralResponse<IEnumerable<ServiceModel>>> GetServices([FromQuery] ServiceListQuery query)
+        public async Task<GeneralResponse<PagedResult<ServiceModel>>> GetServices([FromQuery] ServiceListQuery query)
         {
             return await Mediator.Send(query).ConfigureAwait(false);
         }
