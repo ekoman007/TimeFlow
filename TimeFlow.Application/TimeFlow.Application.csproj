@@ -19,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Guests\Commands\" />
     <Folder Include="Features\Guests\DTOs\" />
     <Folder Include="Features\Guests\Queries\" />
     <Folder Include="Features\Login\Queries\" />

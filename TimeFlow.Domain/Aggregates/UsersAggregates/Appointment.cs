@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using TimeFlow.Domain.Aggregates.Enums;
 using TimeFlow.SharedKernel;
 
@@ -20,6 +15,8 @@ namespace TimeFlow.Domain.Aggregates.UsersAggregates
         public int GuestId { get; set; }
         public Guest Guest { get; set; }
 
+        public int? ApplicationUserDetailsId { get; set; }
+        public ApplicationUserDetails? ApplicationUserDetails { get; set; }
         public int ServiceId { get; set; }
         public Service Service { get; set; }
 
@@ -31,26 +28,29 @@ namespace TimeFlow.Domain.Aggregates.UsersAggregates
         public string? Notes { get; set; }
 
         public ICollection<AppointmentHistory> Histories { get; set; } = new List<AppointmentHistory>();
+        public ICollection<Payment> Payments { get; set; } = new List<Payment>();
 
         public static Appointment Create(
             int businessProfileId,
+            int? staffId,
             int guestId,
+            int applicationUserDetailsId,
             int serviceId,
             DateTime appointmentDate,
             TimeSpan startTime,
             TimeSpan endTime,
-            int? staffId = null,
             string? notes = null)
         {
             return new Appointment
             {
                 BusinessProfileId = businessProfileId,
+                StaffId = staffId,
                 GuestId = guestId,
+                ApplicationUserDetailsId = applicationUserDetailsId,
                 ServiceId = serviceId,
                 AppointmentDate = appointmentDate,
                 StartTime = startTime,
                 EndTime = endTime,
-                StaffId = staffId,
                 Status = AppointmentStatus.Pending,
                 Notes = notes
             };
@@ -60,5 +60,4 @@ namespace TimeFlow.Domain.Aggregates.UsersAggregates
         public void Cancel() => Status = AppointmentStatus.Canceled;
         public void Complete() => Status = AppointmentStatus.Completed;
     }
-
 }

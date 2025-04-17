@@ -8,7 +8,7 @@ using TimeFlow.SharedKernel;
 
 namespace TimeFlow.Domain.Aggregates.UsersAggregates
 {
-    public class WorkSchedule : Entity<int>
+    public class WorkSchedule : AggregateRoot<int>
     {
         public int StaffId { get; set; }
         public Staff Staff { get; set; }

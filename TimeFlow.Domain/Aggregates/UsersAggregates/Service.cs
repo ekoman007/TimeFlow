@@ -22,7 +22,9 @@ namespace TimeFlow.Domain.Aggregates.UsersAggregates
         public string? ImageUrl { get; set; }  
         public int BusinessProfileId { get; set; }
         public BusinessProfile BusinessProfile { get; set; }
-         
+
+        public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
+
 
         public static Service Create(string name, string description, 
                                      decimal price, int durationInMinute,

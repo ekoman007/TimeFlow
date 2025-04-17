@@ -4,7 +4,7 @@ using TimeFlow.SharedKernel;
 
 namespace TimeFlow.Domain.Aggregates.UsersAggregates
 {
-    public class AppointmentHistory : Entity<int>
+    public class AppointmentHistory : AggregateRoot<int>
     {
         public int StaffId { get; set; }
         public Staff Staff { get; set; }

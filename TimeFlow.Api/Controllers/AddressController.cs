@@ -4,11 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using TimeFlow.Application.Features.Address.Commands;
 using TimeFlow.Application.Features.Address.DTOs;
 using TimeFlow.Application.Features.Address.Queries;
-using TimeFlow.Application.Features.Category.Commands;
-using TimeFlow.Application.Features.Category.DTOs;
-using TimeFlow.Application.Features.Category.Queries;
 using TimeFlow.Application.Paged;
-using TimeFlow.Application.Responses;
+using TimeFlow.Application.Responses;  
 
 namespace TimeFlow.Api.Controllers
 {

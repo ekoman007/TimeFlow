@@ -7,7 +7,7 @@ using TimeFlow.SharedKernel;
 
 namespace TimeFlow.Domain.Aggregates.UsersAggregates
 {
-    public class WorkShift : Entity<int>
+    public class WorkShift : AggregateRoot<int>
     {
         public string Name { get; set; } // "Turni i paradites", "Turni i mbremjes"
         public TimeSpan StartTime { get; set; }
