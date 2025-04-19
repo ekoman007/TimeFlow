@@ -1,42 +1,41 @@
-﻿using AutoMapper;
-using MediatR;
-using Microsoft.Extensions.Logging;
-using TimeFlow.Infrastructure.Contracts;
+﻿using MediatR;
+using TimeFlow.Application.Features.Login.Dtos;
 using TimeFlow.Application.Responses;
-using TimeFlow.Domain.Aggregates.UsersAggregates;
 using TimeFlow.Domain.Repositories;
 using TimeFlow.Domain.Security;
-using TimeFlow.Infrastructure.Repositories;
-using TimeFlow.Infrastructure.Security;
+using TimeFlow.Infrastructure.Contracts;
 using TimeFlow.SharedKernel;
 
 namespace TimeFlow.Application.Features.Login.Commands
 {
-    public class LoginCommandHandler : IRequestHandler<LoginCommand, GeneralResponse<string>>
-    { 
-        private readonly IPasswordHasher _passwordHasher; 
-        private readonly IUserRepository _itestUserRepository;
+    public class LoginCommandHandler : IRequestHandler<LoginCommand, GeneralResponse<LoginResponse>>
+    {
+        private readonly IPasswordHasher _passwordHasher;
+        private readonly IUserRepository _userRepository;
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
+        private readonly IRefreshTokenRepository _refreshTokenRepository;
 
         public LoginCommandHandler(
-            IUserRepository itestUserRepository,
-            IPasswordHasher passwordHasher, 
-            IJwtTokenGenerator jwtTokenGenerator)
-        { 
-            _passwordHasher = passwordHasher; 
-            _itestUserRepository = itestUserRepository;
+            IUserRepository userRepository,
+            IPasswordHasher passwordHasher,
+            IJwtTokenGenerator jwtTokenGenerator,
+            IRefreshTokenRepository refreshTokenRepository)
+        {
+            _passwordHasher = passwordHasher;
+            _userRepository = userRepository;
             _jwtTokenGenerator = jwtTokenGenerator;
+            _refreshTokenRepository = refreshTokenRepository;
         }
 
-        public async Task<GeneralResponse<string>> Handle(LoginCommand request, CancellationToken cancellationToken)
+        public async Task<GeneralResponse<LoginResponse>> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             ArgumentNullException.ThrowIfNull(request);
 
-            var user = await _itestUserRepository.GetUserByEmailAsync(request.Email, cancellationToken);
+            var user = await _userRepository.GetUserByEmailAsync(request.Email, cancellationToken);
 
             if (user == null || !_passwordHasher.VerifyPassword(request.Password, user.PasswordHash))
             {
-                return new GeneralResponse<string>
+                return new GeneralResponse<LoginResponse>
                 {
                     Success = false,
                     Message = "Login failed",
@@ -44,16 +43,27 @@ namespace TimeFlow.Application.Features.Login.Commands
                 };
             }
 
-            var token = _jwtTokenGenerator.GenerateToken(user);
+            var accessToken = _jwtTokenGenerator.GenerateToken(user);
+            var refreshTokenValue = _jwtTokenGenerator.GenerateRefreshToken();
+            var refreshToken = Domain.Aggregates.UsersAggregates.RefreshToken.Create(refreshTokenValue, DateTime.UtcNow.AddMinutes(2), user.Id);
 
-            return new GeneralResponse<string>
+            // Revoko tokenat e vjetër
+            await _refreshTokenRepository.RevokeAllTokensForUserAsync(user.Id, cancellationToken);
+
+            // Ruaj tokenin e ri
+            await _refreshTokenRepository.AddAsync(refreshToken, cancellationToken);
+
+            return new GeneralResponse<LoginResponse>
             {
                 Success = true,
                 Message = "Login successful",
-                Result = token
+                Result = new LoginResponse
+                {
+                    AccessToken = accessToken,
+                    RefreshToken = refreshToken.Token
+                }
             };
         }
 
     }
 }
-

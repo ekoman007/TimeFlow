@@ -21,6 +21,7 @@ namespace TimeFlow.Infrastructure.Database
         public DbSet<Appointment> Appointments { get; set; } 
         public DbSet<AppointmentHistory> AppointmentHistories { get; set; } 
         public DbSet<Payment> Payments { get; set; } 
+        public DbSet<RefreshToken> RefreshTokens { get; set; } 
 
         public TimeFlowDbContext(DbContextOptions<TimeFlowDbContext> options)
             : base(options)

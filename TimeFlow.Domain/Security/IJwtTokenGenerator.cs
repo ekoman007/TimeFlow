@@ -10,5 +10,6 @@ namespace TimeFlow.Domain.Security
     public interface IJwtTokenGenerator
     {
         string GenerateToken(ApplicationUser user);
+        string GenerateRefreshToken();
     }
 }

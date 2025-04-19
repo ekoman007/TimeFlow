@@ -8,8 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using TimeFlow.SharedKernel;
-using Hellang.Middleware.ProblemDetails;
-using TimeFlow.Infrastructure.SeedData;
+using Hellang.Middleware.ProblemDetails; 
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -101,6 +100,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+//builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
+
 // Shtoni CORS policy
 builder.Services.AddCors(options =>
 {
@@ -136,6 +137,7 @@ app.UseCors("AllowAll");
 
 app.UseAuthentication(); // Kjo është e nevojshme për të validuar tokenin JWT
 app.UseAuthorization();
+ 
 
 app.MapControllers();
 
