@@ -31,15 +31,15 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Gener
     public async Task<GeneralResponse<int>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(request);
-        var checkRoleExist = await _roleRepository.GetById(request.RoleId, cancellationToken: cancellationToken);
-        if (checkRoleExist == null)
-        {
-            return new GeneralResponse<int>
-            {
-                Success = false,
-                Message = "Role with this is not exists."
-            };
-        }
+        //var checkRoleExist = await _roleRepository.GetById(request.RoleId, cancellationToken: cancellationToken);
+        //if (checkRoleExist == null)
+        //{
+        //    return new GeneralResponse<int>
+        //    {
+        //        Success = false,
+        //        Message = "Role with this is not exists."
+        //    };
+        //}
 
         var userExists = await _userRepository.ExistsByEmailAsync(request.Email, cancellationToken);
         if (userExists)
@@ -55,9 +55,10 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Gener
         string hashedPassword = _passwordHasher.HashPassword(request.Password);
 
         // Create the User object with the hashed password
-        ApplicationUser user = ApplicationUser.Create(request.Username, request.Email, hashedPassword, request.RoleId);
+        ApplicationUser user = ApplicationUser.Create(request.Username, request.Email, hashedPassword, request.IsBussines);
 
         await _userRepository.Add(user, cancellationToken).ConfigureAwait(false);
+
         await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
 
         return new GeneralResponse<int>

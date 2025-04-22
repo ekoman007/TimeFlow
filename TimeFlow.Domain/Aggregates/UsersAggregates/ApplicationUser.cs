@@ -1,4 +1,5 @@
-﻿using TimeFlow.SharedKernel;
+﻿using TimeFlow.Domain.Aggregates.Enums;
+using TimeFlow.SharedKernel;
 
 namespace TimeFlow.Domain.Aggregates.UsersAggregates
 {
@@ -10,16 +11,18 @@ namespace TimeFlow.Domain.Aggregates.UsersAggregates
         public DateTime? LastLogin { get; private set; }
         public int RoleId { get; private set; }
         public virtual Role Role { get; private set; }
-
+        public bool IsBussines { get; private set; }
+            
         // Static factory method
-        public static ApplicationUser Create(string username, string email, string passwordHash, int roleId)
+        public static ApplicationUser Create(string username, string email, string passwordHash, bool isBussines)
         {
             var user = new ApplicationUser
             {
                 Username = username,
                 Email = email,
                 PasswordHash = passwordHash,
-                RoleId = roleId
+                IsBussines = isBussines,
+                RoleId = isBussines ? (int)RolesStatus.BussinesAdmin : (int)RolesStatus.User
             };
 
             user.ValidateUser();

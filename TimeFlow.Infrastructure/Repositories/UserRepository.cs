@@ -28,6 +28,7 @@ namespace TimeFlow.Infrastructure.Repositories
         public async Task<ApplicationUser?> GetUserByEmailAsync(string email, CancellationToken cancellationToken)
         {
             return await _dbContext.ApplicationUsers
+                .Include(u => u.Role)
                 .FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
         } 
     }

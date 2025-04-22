@@ -32,6 +32,7 @@ namespace TimeFlow.Application.Features.Login.Commands
             ArgumentNullException.ThrowIfNull(request);
 
             var user = await _userRepository.GetUserByEmailAsync(request.Email, cancellationToken);
+            var roleName = user.Role.RoleName;
 
             if (user == null || !_passwordHasher.VerifyPassword(request.Password, user.PasswordHash))
             {
@@ -60,7 +61,8 @@ namespace TimeFlow.Application.Features.Login.Commands
                 Result = new LoginResponse
                 {
                     AccessToken = accessToken,
-                    RefreshToken = refreshToken.Token
+                    RefreshToken = refreshToken.Token,
+                    RoleName = roleName,
                 }
             };
         }

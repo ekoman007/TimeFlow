@@ -94,24 +94,26 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = "YourApp",
-            ValidAudience = "YourApp",
+            ValidIssuer = builder.Configuration["JwtSettings:Issuer"],  // Përdorim vlerën nga appsettings.json
+            ValidAudience = builder.Configuration["JwtSettings:Audience"], // Përdorim vlerën nga appsettings.json
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:SecretKey"]))
         };
     });
 
-//builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
+
 
 // Shtoni CORS policy
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
-        policy.AllowAnyOrigin()
+        policy.WithOrigins("https://localhost:3000/")
+        .AllowAnyOrigin()
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
-});
+}); 
 
 
 var app = builder.Build();
@@ -134,6 +136,7 @@ app.UseHttpsRedirection();
 
 // Aktivizoni CORS
 app.UseCors("AllowAll");
+
 
 app.UseAuthentication(); // Kjo është e nevojshme për të validuar tokenin JWT
 app.UseAuthorization();

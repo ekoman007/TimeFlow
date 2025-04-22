@@ -18,8 +18,9 @@ namespace TimeFlow.Infrastructure.SeedData
 
             var users = new List<ApplicationUser>
             {
-                ApplicationUser.Create("admin", "erhan@msn.com","203925",1),
-                ApplicationUser.Create("bussinessAdmin", "erhan@msn.com","203925",2)
+                ApplicationUser.Create("admin", "erhan@msn.com","203925",true),
+                ApplicationUser.Create("bussinessAdmin", "erhan@msn.com","203925",true),
+                ApplicationUser.Create("User", "erhan@msn.com","203925",true)
             };
 
             context.ApplicationUsers.AddRange(users);

@@ -1,5 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Http;
+﻿using MediatR; 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.IdentityModel.Tokens.Jwt;
@@ -20,58 +19,11 @@ namespace TimeFlow.Api.Controllers
         {
             _jwtSettings = jwtSettings;
         }
-        [HttpPost("login")] 
-        public async Task<IActionResult> PostCreate([FromBody] LoginCommand command)
+
+
+        [HttpPost("login")]
+        public async Task<IActionResult> LoginCreate([FromBody] LoginCommand command)
         {
-            var result = await Mediator.Send(command).ConfigureAwait(false);
-
-            // Nëse login nuk është i suksesshëm
-            if (!result.Success)
-            {
-                return Unauthorized(new
-                {
-                    success = false,
-                    message = result.Message
-                });
-            }
-            //var expiryMinutes = _jwtSettings.Value.ExpiryMinutes;
-            //var refreshTokenExpiryDays = _jwtSettings.Value.RefreshTokenExpiryDays;
-
-            //// Vendosja e AccessToken në cookie
-            //Response.Cookies.Append("access_token", result.Result.AccessToken, new CookieOptions
-            //{
-            //    HttpOnly = true,
-            //    Secure = true,
-            //    SameSite = SameSiteMode.Strict,
-            //    Expires = DateTimeOffset.UtcNow.AddHours(expiryMinutes)  // ose periudha që dëshiron
-            //});
-
-            //// Vendosja e RefreshToken në cookie
-            //Response.Cookies.Append("refresh_token", result.Result.RefreshToken, new CookieOptions
-            //{
-            //    HttpOnly = true,
-            //    Secure = true,
-            //    SameSite = SameSiteMode.Strict,
-            //    Expires = DateTimeOffset.UtcNow.AddHours(expiryMinutes)   // ose periudha që dëshiron
-            //});
-
-            //// Kthe përgjigjen që është marrë nga handler, tani përfshin edhe AccessToken dhe RefreshToken
-            //return Ok(new
-            //{
-            //    success = true,
-            //    message = "Login successful",
-            //    accessToken = result.Result.AccessToken,  // Kthejmë AccessToken
-            //    refreshToken = result.Result.RefreshToken  // Kthejmë RefreshToken
-            //});
-
-            return Ok(result);
-        }
-         
-
-        [HttpPost("refresh-token")]
-        public async Task<IActionResult> RefreshAccessToken([FromBody] RefreshAccessTokenRequest request)
-        {
-            var command = new RefreshAccessTokenCommand(request.RefreshToken);
             var result = await Mediator.Send(command).ConfigureAwait(false);
 
             if (!result.Success)
@@ -81,16 +33,55 @@ namespace TimeFlow.Api.Controllers
                     success = false,
                     message = result.Message
                 });
-            }
-
-            // Vendosja e access token të ri në cookie
-            Response.Cookies.Append("token", result.Result, new CookieOptions
+            } 
+            // Vendos refresh token si HttpOnly cookie
+            Response.Cookies.Append("refreshToken", result.Result.RefreshToken, new CookieOptions
             {
                 HttpOnly = true,
-                Secure = true,
+                Secure = true, // për HTTPS
                 SameSite = SameSiteMode.Strict,
-                Expires = DateTimeOffset.UtcNow.AddDays(1)
+                Expires = DateTimeOffset.UtcNow.AddDays(_jwtSettings.Value.RefreshTokenExpiryDays)
             });
+
+            // Kthe access token në response body
+            return Ok(new
+            {
+                success = true,
+                message = result.Message,
+                result = new
+                {
+                    accessToken = result.Result.AccessToken,
+                    roleName = result.Result.RoleName,
+                }
+            });
+        }
+
+
+
+        [HttpPost("refresh-token")]
+        public async Task<IActionResult> RefreshAccessToken()
+        {
+            var refreshToken = Request.Cookies["refreshToken"];
+            if (string.IsNullOrEmpty(refreshToken))
+            {
+                return Unauthorized(new
+                {
+                    success = false,
+                    message = "No refresh token found."
+                });
+            }
+
+            var command = new RefreshAccessTokenCommand(refreshToken);
+            var result = await Mediator.Send(command).ConfigureAwait(false);
+
+            if (!result.Success)
+            {
+                return Unauthorized(new
+                {
+                    success = false,
+                    message = result.Message
+                });
+            }
 
             return Ok(new
             {
@@ -98,13 +89,14 @@ namespace TimeFlow.Api.Controllers
                 accessToken = result.Result
             });
         }
+
+
+        public class RefreshAccessTokenRequest
+        {
+            public string RefreshToken { get; set; }
+        }
+
+
     }
-
-    public class RefreshAccessTokenRequest
-    {
-        public string RefreshToken { get; set; }
-    }
-
-
 }
  

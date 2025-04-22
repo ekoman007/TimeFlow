@@ -6,5 +6,6 @@ namespace TimeFlow.Application.Features.Login.Dtos
     {
         public string AccessToken { get; set; }
         public string RefreshToken { get; set; }
+        public string RoleName { get; set; }
     }
 }
