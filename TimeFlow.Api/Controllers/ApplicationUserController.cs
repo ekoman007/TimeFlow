@@ -40,6 +40,17 @@ namespace TimeFlow.Api.Controllers
             return await Mediator.Send(command).ConfigureAwait(false);
         }
 
+        [HttpPut("activete/{id}")]
+        public async Task<GeneralResponse<int>> UserActive(int id)
+        {
+            var command = new UserActiveCommand
+            {
+                Id = id
+            };
+            return await Mediator.Send(command).ConfigureAwait(false);
+        }
+
+
         [HttpGet]
         public async Task<GeneralResponse<PagedResult<ApplicationUserModel>>> GetUsers([FromQuery] UserListQuery query)
         {

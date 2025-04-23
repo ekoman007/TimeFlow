@@ -108,12 +108,12 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
-        policy.WithOrigins("https://localhost:3000/")
-        .AllowAnyOrigin()
+        policy.WithOrigins("https://localhost:3000") // Specify your allowed origin
               .AllowAnyMethod()
-              .AllowAnyHeader();
+              .AllowAnyHeader()
+              .AllowCredentials();
     });
-}); 
+});
 
 
 var app = builder.Build();

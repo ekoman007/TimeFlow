@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using TimeFlow.Application.Features.User.DTOs;
 using TimeFlow.Application.Features.User.Query;
 using TimeFlow.Application.Paged;
@@ -17,7 +18,9 @@ public class UserListQueryHandler : IRequestHandler<UserListQuery, GeneralRespon
 
     public async Task<GeneralResponse<PagedResult<ApplicationUserModel>>> Handle(UserListQuery query, CancellationToken cancellationToken = default)
     {
-        IQueryable<ApplicationUser> queryable = _userRepository.Get(cancellationToken: cancellationToken);
+        IQueryable<ApplicationUser> queryable = _userRepository.Get(cancellationToken: cancellationToken)
+        .Include(u => u.Role);  
+
 
         // Filtrimet
         if (!string.IsNullOrEmpty(query.Username))
@@ -40,6 +43,9 @@ public class UserListQueryHandler : IRequestHandler<UserListQuery, GeneralRespon
             queryable = queryable.Where(u => u.RoleId == query.RoleId.Value);
         }
 
+        // ** Renditja zbritëse sipas CreatedDate **
+        queryable = queryable.OrderByDescending(u => u.CreatedOn);
+
         // Paginimi + mapping
         var pagedResult = await queryable.ToPagedResultAsync(
             query.PageNumber,
@@ -50,7 +56,8 @@ public class UserListQueryHandler : IRequestHandler<UserListQuery, GeneralRespon
                 Username = x.Username,
                 Email = x.Email,
                 IsActive = x.IsActive,
-                RoleId = x.RoleId
+                RoleId = x.RoleId, 
+                RoleName = x.Role != null ? x.Role.RoleName : string.Empty
             },
             cancellationToken
         );

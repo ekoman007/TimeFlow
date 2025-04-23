@@ -14,7 +14,7 @@ namespace TimeFlow.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class RolesController : DefaultController
     {
         public RolesController(IMediator mediator)

@@ -10,5 +10,6 @@ namespace TimeFlow.Application.Features.User.DTOs
         public bool IsActive { get;  set; }  
         public DateTime? LastLogin { get;  set; }
         public int RoleId { get;  set; }
+        public string RoleName { get;  set; }
     }
 }
