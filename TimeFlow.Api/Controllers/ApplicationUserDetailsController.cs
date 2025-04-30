@@ -30,12 +30,12 @@ namespace TimeFlow.Api.Controllers
             return await Mediator.Send(command).ConfigureAwait(false);
         }
 
-        [HttpPost("update")]
+        [HttpPut("update")]
         public async Task<GeneralResponse<int>> UserDetailsUpdate([FromBody] UpdateUserDetailsCommand command)
         {
             return await Mediator.Send(command).ConfigureAwait(false);
         }
-
+         
 
         [HttpPost("delete")]
         public async Task<GeneralResponse<int>> DeleteUserApplication([FromBody] DeleteUserDetailsCommand command)

@@ -31,11 +31,16 @@ namespace TimeFlow.Application.Features.BussinesProfile.Commands
                 };
             }
 
-            Domain.Aggregates.UsersAggregates.BusinessProfile bussinesProfiles = Domain.Aggregates.UsersAggregates.BusinessProfile.Create(request.BusinessName, request.Email,request.PhoneNumber, request.Website, request.Description,request.LogoUrl, request.IndustryId, request.UserDetailsId);
+            Domain.Aggregates.UsersAggregates.BusinessProfile bussinesProfiles = Domain.Aggregates.UsersAggregates.BusinessProfile.Create(request.BusinessName, request.Email,request.PhoneNumber, request.Website, request.Description,request.LogoUrl, request.IndustryId, request.UserDetailsId, request.NIPT);
 
 
             await _bussinesProfileRepository.Add(bussinesProfiles, cancellationToken).ConfigureAwait(false);
-            await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
+            try
+            {
+                await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
+            }
+            catch (Exception ex) { }
+           
 
             return new GeneralResponse<int>
             {

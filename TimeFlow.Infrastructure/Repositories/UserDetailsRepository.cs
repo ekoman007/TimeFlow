@@ -19,6 +19,11 @@ namespace TimeFlow.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
+        public async Task<ApplicationUserDetails> ByUserId(int userId, CancellationToken cancellationToken)
+        {
+            return await _dbContext.ApplicationUserDetails.FirstOrDefaultAsync(u => u.UserId == userId, cancellationToken);
+        }
+
         public async Task<bool> ExistByUserId(int userId, CancellationToken cancellationToken)
         {
             return await _dbContext.ApplicationUserDetails.AnyAsync(u => u.UserId == userId, cancellationToken);

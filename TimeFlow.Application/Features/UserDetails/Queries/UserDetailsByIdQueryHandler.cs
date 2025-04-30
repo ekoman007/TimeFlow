@@ -24,7 +24,7 @@ namespace TimeFlow.Application.Features.UserDetails.Queries
         public async Task<GeneralResponse<UserDetailsModel>> Handle(UserDetailsByIdQuery query, CancellationToken cancellationToken = default)
         {
             // Merrni rolin me ID nga repository
-            var userDetails = await _userDetailsRepository.GetById(query.Id, cancellationToken: cancellationToken).ConfigureAwait(false);
+            var userDetails = await _userDetailsRepository.ByUserId(query.Id, cancellationToken: cancellationToken).ConfigureAwait(false);
 
 
             if (userDetails == null)
@@ -43,13 +43,14 @@ namespace TimeFlow.Application.Features.UserDetails.Queries
                 FullName = userDetails.FullName, 
                 PhoneNumber = userDetails.PhoneNumber,
                 DateOfBirth = userDetails.DateOfBirth,
+                ProfilePicture = userDetails.ProfilePicture,
                 UserId = userDetails.UserId,
             };
 
             return new GeneralResponse<UserDetailsModel>
             {
                 Success = true,
-                Message = "Role found successfully",
+                Message = "User found successfully",
                 Result = userModel
             };
         }

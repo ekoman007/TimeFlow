@@ -7,5 +7,6 @@ namespace TimeFlow.Infrastructure.Contracts
     {
         Task<bool> GetUserDetailsByNameAsync(string rolename, CancellationToken cancellationToken);
         Task<bool> ExistByUserId(int userId, CancellationToken cancellationToken);
+        Task<ApplicationUserDetails> ByUserId(int userId, CancellationToken cancellationToken);
     }
 }

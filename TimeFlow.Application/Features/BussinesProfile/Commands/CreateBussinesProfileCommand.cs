@@ -9,6 +9,7 @@ namespace TimeFlow.Application.Features.BussinesProfile.Commands
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string? Website { get; set; }
+        public string NIPT { get; set; }
         public string? Description { get; set; }
         public string? LogoUrl { get; set; }
         public int IndustryId { get; set; } 

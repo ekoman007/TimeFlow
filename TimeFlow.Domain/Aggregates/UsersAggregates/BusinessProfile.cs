@@ -22,7 +22,7 @@ namespace TimeFlow.Domain.Aggregates.UsersAggregates
         public static BusinessProfile Create(string businessName,
             string email, string phoneNumber, string website,
             string? description, string logoUrl, int industryId,
-            int userDetailsId)
+            int userDetailsId, string nipt)
         {
             var businessProfile = new BusinessProfile
             {
@@ -34,6 +34,7 @@ namespace TimeFlow.Domain.Aggregates.UsersAggregates
                 LogoUrl = logoUrl,
                 IndustryId = industryId,
                 UserDetailsId = userDetailsId,
+                NIPT = nipt
 
             };
 

@@ -26,7 +26,7 @@ namespace TimeFlow.Application.Features.UserDetails.Commands
         {
             ArgumentNullException.ThrowIfNull(request);
             //Duhet me i shtu fushat tjera edhe me check nese id nuk ekziston me gjujt error
-            var userDetailsExists = await _userDetailsRepository.GetById(request.Id, cancellationToken: cancellationToken);
+            var userDetailsExists = await _userDetailsRepository.ByUserId(request.Id, cancellationToken: cancellationToken);
 
             userDetailsExists.ChangeFullName(request.FullName);
             userDetailsExists.ChangePhoneNumber(request.PhoneNumber); 
