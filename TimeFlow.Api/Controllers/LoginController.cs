@@ -6,6 +6,7 @@ using TimeFlow.Api.Extensions;
 using TimeFlow.Application.Features.Login.Commands;
 using TimeFlow.Application.Features.RefreshToken.Commands;
 using TimeFlow.Application.Responses;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TimeFlow.Api.Controllers
 {
@@ -90,6 +91,19 @@ namespace TimeFlow.Api.Controllers
             });
         }
 
+        [HttpPost("logout")]
+        [Authorize]
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("refreshToken", new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict
+            });
+
+            return Ok(new { success = true, message = "Logged out successfully." });
+        }
 
         public class RefreshAccessTokenRequest
         {

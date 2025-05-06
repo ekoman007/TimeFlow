@@ -1,4 +1,5 @@
 ﻿using MediatR; 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc; 
 using TimeFlow.Application.Features.User.Command;
 using TimeFlow.Application.Features.User.DTOs;
@@ -11,8 +12,8 @@ using TimeFlow.Application.Responses;
 namespace TimeFlow.Api.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController] 
-
+    [ApiController]
+    [Authorize]
     public class ApplicationUserController : DefaultController
     {
         public ApplicationUserController(IMediator mediator)
@@ -21,6 +22,7 @@ namespace TimeFlow.Api.Controllers
             //
         }
 
+        [AllowAnonymous]
         [HttpPost("create")]
         public async Task<GeneralResponse<int>> UserCreate([FromBody] CreateUserCommand command)
         {
@@ -49,7 +51,6 @@ namespace TimeFlow.Api.Controllers
             };
             return await Mediator.Send(command).ConfigureAwait(false);
         }
-
 
         [HttpGet]
         public async Task<GeneralResponse<PagedResult<ApplicationUserModel>>> GetUsers([FromQuery] UserListQuery query)

@@ -1,4 +1,3 @@
- 
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using TimeFlow.Api.Middlewares;
@@ -12,7 +11,7 @@ using Hellang.Middleware.ProblemDetails;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Regjistro shërbimet e aplikacionit
+// Regjistro shï¿½rbimet e aplikacionit
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
@@ -41,7 +40,7 @@ builder.Services.AddProblemDetails(options =>
 
 
 
-// Regjistro shërbimet e aplikacionit nga file-i i veçantë
+// Regjistro shï¿½rbimet e aplikacionit nga file-i i veï¿½antï¿½
 builder.Services.AddApplicationServices();
 
 // Shto Swagger dhe konfigurimin e autorizimit me JWT
@@ -53,7 +52,7 @@ builder.Services.AddSwaggerGen(c =>
         Version = "v1"
     });
 
-    // Shto përkufizimin për autorizimin JWT në Swagger
+    // Shto pï¿½rkufizimin pï¿½r autorizimin JWT nï¿½ Swagger
     c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
         In = Microsoft.OpenApi.Models.ParameterLocation.Header,
@@ -94,8 +93,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["JwtSettings:Issuer"],  // Përdorim vlerën nga appsettings.json
-            ValidAudience = builder.Configuration["JwtSettings:Audience"], // Përdorim vlerën nga appsettings.json
+            ValidIssuer = builder.Configuration["JwtSettings:Issuer"],  // Pï¿½rdorim vlerï¿½n nga appsettings.json
+            ValidAudience = builder.Configuration["JwtSettings:Audience"], // Pï¿½rdorim vlerï¿½n nga appsettings.json
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:SecretKey"]))
         };
     });
@@ -108,7 +107,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
-        policy.WithOrigins("https://localhost:3000") // Specify your allowed origin
+        policy.WithOrigins("https://localhost:3000", "http://localhost:3000") // Specify your allowed origins
               .AllowAnyMethod()
               .AllowAnyHeader()
               .AllowCredentials();
@@ -127,10 +126,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "AuthService API V1");
-        c.RoutePrefix = "swagger"; // e bën të hapet te /swagger/index.html
+        c.RoutePrefix = "swagger"; // e bï¿½n tï¿½ hapet te /swagger/index.html
     });
 }
-app.UseProblemDetails(); // përdor middleware-in
+app.UseProblemDetails(); // pï¿½rdor middleware-in
 
 app.UseHttpsRedirection();
 
@@ -138,7 +137,7 @@ app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 
 
-app.UseAuthentication(); // Kjo është e nevojshme për të validuar tokenin JWT
+app.UseAuthentication(); // Kjo ï¿½shtï¿½ e nevojshme pï¿½r tï¿½ validuar tokenin JWT
 app.UseAuthorization();
  
 
