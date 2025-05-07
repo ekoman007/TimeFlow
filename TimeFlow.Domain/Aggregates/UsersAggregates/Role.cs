@@ -13,7 +13,8 @@ namespace TimeFlow.Domain.Aggregates.UsersAggregates
             var role = new Role
             {
                 RoleName = rolename,
-                Description = description
+                Description = description,
+                IsActive = true,
             };
 
             role.ValidateRole();

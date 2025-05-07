@@ -6,6 +6,7 @@ using TimeFlow.Application.Commands;
 using TimeFlow.Application.Commands.Roles.Command;
 using TimeFlow.Application.Features.Roles.DTOs;
 using TimeFlow.Application.Features.Roles.Queries;
+using TimeFlow.Application.Features.User.Command;
 using TimeFlow.Application.Paged;
 using TimeFlow.Application.Queries.Roles.TimeFlow.Application.Queries.Roles;
 using TimeFlow.Application.Responses;
@@ -29,19 +30,25 @@ namespace TimeFlow.Api.Controllers
             return await Mediator.Send(command).ConfigureAwait(false);
         }
 
-        [HttpPost("update")]
+        [HttpPut("update")]
         public async Task<GeneralResponse<int>> RoleUpdate([FromBody] UpdateRoleCommand command)
         {
             return await Mediator.Send(command).ConfigureAwait(false);
         }
 
 
-        [HttpPost("delete")]
-        public async Task<GeneralResponse<int>> DeleteRole([FromBody] DeleteRoleCommand command)
+        [HttpPut("delete/{id}")]
+        public async Task<GeneralResponse<int>> DeleteRole(int id)
         {
+            var command = new DeleteRoleCommand
+            {
+                Id = id
+            };
             return await Mediator.Send(command).ConfigureAwait(false);
         }
          
+
+
         [HttpGet]
         public async Task<GeneralResponse<PagedResult<RolesModel>>> GetRoles([FromQuery] RoleListQuery query)
         {

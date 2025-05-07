@@ -28,7 +28,7 @@ namespace TimeFlow.Api.Controllers
             return await Mediator.Send(command).ConfigureAwait(false);
         }
 
-        [HttpPost("update")]
+        [HttpPut("update")]
         public async Task<GeneralResponse<int>> CategoryUpdate([FromBody] UpdateCategoryCommand command)
         {
             return await Mediator.Send(command).ConfigureAwait(false);
@@ -41,7 +41,7 @@ namespace TimeFlow.Api.Controllers
             return await Mediator.Send(query).ConfigureAwait(false);
         }
 
-        [HttpPost("activete")]
+        [HttpPut("activete")]
         public async Task<GeneralResponse<int>> CategoryActive([FromBody] DeleteCategoryCommand command)
         {
             return await Mediator.Send(command).ConfigureAwait(false);

@@ -5,6 +5,7 @@ using TimeFlow.Application.Paged;
 using TimeFlow.Application.Responses;
 using TimeFlow.Domain.Aggregates.UsersAggregates;
 using TimeFlow.Infrastructure.Contracts;
+using TimeFlow.Infrastructure.Repositories;
 
 public class CategoryListQueryHandler : IRequestHandler<CategoryListQuery, GeneralResponse<PagedResult<CategoryModel>>>
 {
@@ -17,7 +18,21 @@ public class CategoryListQueryHandler : IRequestHandler<CategoryListQuery, Gener
 
     public async Task<GeneralResponse<PagedResult<CategoryModel>>> Handle(CategoryListQuery query, CancellationToken cancellationToken = default)
     {
+
         IQueryable<Category> queryable = _categoryRepository.Get(cancellationToken: cancellationToken);
+
+
+        // Filtrimet
+        if (!string.IsNullOrEmpty(query.Name))
+        {
+            queryable = queryable.Where(u => u.Name.Contains(query.Name));
+        }
+
+        if (!string.IsNullOrEmpty(query.Code))
+        {
+            queryable = queryable.Where(u => u.Code.Contains(query.Code));
+        }
+         
 
         // Paginimi dhe mapping me ToPagedResultAsync
         var pagedResult = await queryable.ToPagedResultAsync(

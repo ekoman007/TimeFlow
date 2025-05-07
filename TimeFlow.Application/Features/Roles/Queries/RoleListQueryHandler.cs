@@ -18,8 +18,16 @@ namespace TimeFlow.Application.Features.Roles.Queries
         } 
         public async Task<GeneralResponse<PagedResult<RolesModel>>> Handle(RoleListQuery query, CancellationToken cancellationToken = default)
         {
-            IQueryable<Role> queryable = _roleRepository.Get(cancellationToken: cancellationToken);
+            IQueryable<Role> queryable = _roleRepository.Get(cancellationToken: cancellationToken).
+                Where(x => x.IsActive == true);
 
+
+            // Filtrimet
+            if (!string.IsNullOrEmpty(query.RoleName))
+            {
+                queryable = queryable.Where(u => u.RoleName.Contains(query.RoleName));
+            }
+              
             var pagedResult = await queryable.ToPagedResultAsync(
                 query.PageNumber,
                 query.PageSize,

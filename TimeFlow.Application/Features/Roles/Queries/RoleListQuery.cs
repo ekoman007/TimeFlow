@@ -9,5 +9,6 @@ namespace TimeFlow.Application.Features.Roles.Queries
     {
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
+        public string? RoleName { get; set; } 
     }
 }
