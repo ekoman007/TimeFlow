@@ -1,4 +1,4 @@
-﻿ 
+ 
 
 namespace TimeFlow.Application.Features.BussinesProfile.DTOs
 {
@@ -8,3 +8,4 @@ namespace TimeFlow.Application.Features.BussinesProfile.DTOs
         public string BussinesName { get; set; }
     }
 }
+

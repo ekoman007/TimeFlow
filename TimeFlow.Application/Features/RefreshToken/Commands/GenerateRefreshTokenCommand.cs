@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using TimeFlow.Application.Responses;
 
 namespace TimeFlow.Application.Features.RefreshToken.Commands
@@ -18,3 +18,4 @@ namespace TimeFlow.Application.Features.RefreshToken.Commands
         }
     }
 }
+

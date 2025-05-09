@@ -1,4 +1,4 @@
-﻿
+
 
 using MediatR;
 using TimeFlow.Application.Responses;
@@ -22,7 +22,7 @@ namespace TimeFlow.Application.Features.UserDetails.Commands
         {
             ArgumentNullException.ThrowIfNull(request);
 
-            var userDetailsExists = await _userDetailsRepository.GetById(request.Id, cancellationToken: cancellationToken);
+            var userDetailsExists = await _userDetailsRepository.GetByIdAsync(request.Id, cancellationToken);
             if(userDetailsExists == null)
             {
                 return new GeneralResponse<int>
@@ -35,7 +35,7 @@ namespace TimeFlow.Application.Features.UserDetails.Commands
             if(!userDetailsExists.IsActive) { userDetailsExists.ChangeToActive(); } else { userDetailsExists.ChangeToDeActive(); }
              
 
-            await _userDetailsRepository.Update(userDetailsExists, cancellationToken).ConfigureAwait(false);
+            await _userDetailsRepository.UpdateAsync(userDetailsExists, cancellationToken).ConfigureAwait(false);
             await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
 
             return new GeneralResponse<int>

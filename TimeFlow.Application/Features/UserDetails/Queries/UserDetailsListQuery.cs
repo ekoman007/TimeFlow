@@ -1,4 +1,4 @@
-﻿using MediatR; 
+using MediatR; 
 using TimeFlow.Application.Features.UserDetails.DTOs;
 using TimeFlow.Application.Paged;
 using TimeFlow.Application.Responses;
@@ -11,3 +11,4 @@ namespace TimeFlow.Application.Features.UserDetails.Queries
         public int PageSize { get; set; }
     }
 }
+

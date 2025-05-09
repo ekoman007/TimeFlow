@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,3 +15,4 @@ namespace TimeFlow.Application.Features.Category.DTOs
         public int IndustryId { get; set; }
     }
 }
+

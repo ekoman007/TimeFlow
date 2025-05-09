@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +31,7 @@ namespace TimeFlow.Application.Features.Guests.Commands
             Guest guest = Guest.Create(request.FullName, request.PhoneNumber, request.Email);
 
 
-            await _guestRepository.Add(guest, cancellationToken).ConfigureAwait(false);
+            await _guestRepository.AddAsync(guest, cancellationToken).ConfigureAwait(false);
             await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
 
             return new GeneralResponse<int>

@@ -1,4 +1,4 @@
-﻿namespace TimeFlow.Application.Features.RefreshToken.DTOs
+namespace TimeFlow.Application.Features.RefreshToken.DTOs
 {
     public class RefreshTokenModel
     {
@@ -9,3 +9,4 @@
         public bool IsRevoked { get; set; }
     }
 }
+

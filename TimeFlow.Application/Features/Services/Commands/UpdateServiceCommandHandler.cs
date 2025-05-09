@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using TimeFlow.Application.Responses;
 using TimeFlow.Domain.Repositories;
 using TimeFlow.Infrastructure.Contracts;
@@ -21,14 +21,14 @@ namespace TimeFlow.Application.Features.Services.Commands
         {
             ArgumentNullException.ThrowIfNull(request);
 
-            var serviceExists = await _serviceRepository.GetById(request.Id, cancellationToken: cancellationToken);
+            var serviceExists = await _serviceRepository.GetByIdAsync(request.Id, cancellationToken);
 
             serviceExists.ChangeService(request.Name, request.Description,request.Price,request.DurationInMinutes,
                                         request.ServiceType, request.Tags, request.MaxBookingsPerDay, request.AdditionalInfo
                                         , request.DiscountPrice, request.Availability, request.ServiceCode, request.RequiredMaterials
                                         , request.Currency, request.ImageUrl, request.BusinessProfileId); 
 
-            await _serviceRepository.Update(serviceExists, cancellationToken).ConfigureAwait(false);
+            await _serviceRepository.UpdateAsync(serviceExists, cancellationToken).ConfigureAwait(false);
             await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
 
             return new GeneralResponse<int>

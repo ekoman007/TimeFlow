@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using TimeFlow.Application.Features.RefreshToken.DTOs;
 using TimeFlow.Application.Features.Roles.DTOs;
 using TimeFlow.Application.Responses;
@@ -49,3 +49,4 @@ namespace TimeFlow.Application.Features.RefreshToken.Queries
         }
     }
 }
+

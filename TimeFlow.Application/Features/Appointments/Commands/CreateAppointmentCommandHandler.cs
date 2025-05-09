@@ -1,8 +1,9 @@
-﻿using MediatR; 
+using MediatR; 
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using TimeFlow.Application.Responses;
-using TimeFlow.Domain.Aggregates.UsersAggregates;
 using TimeFlow.Domain.Repositories;
-using TimeFlow.Infrastructure.Contracts;
 
 namespace TimeFlow.Application.Features.Appointments.Commands
 {
@@ -21,21 +22,20 @@ namespace TimeFlow.Application.Features.Appointments.Commands
         {
             ArgumentNullException.ThrowIfNull(request);
 
-             Appointment appointments = Appointment.Create(
-                 request.BusinessProfileId, 
-                 request.StaffId, request.GuestId,
-                 request.ApplicationUserDetailsId, 
-                 request.ServiceId,request.AppointmentDate, 
-                 request.StartTime, request.EndTime, request.Notes);
+            Appointment appointments = Appointment.Create(
+                request.BusinessProfileId, 
+                request.StaffId, request.GuestId,
+                request.ApplicationUserDetailsId, 
+                request.ServiceId, request.AppointmentDate, 
+                request.StartTime, request.EndTime, request.Notes);
 
-
-            await _appointmentRepository.Add(appointments, cancellationToken).ConfigureAwait(false);
-            await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
+            await _appointmentRepository.AddAsync(appointments, cancellationToken);
+            await _unitOfWork.Save(cancellationToken);
 
             return new GeneralResponse<int>
             {
                 Success = true,
-                Message = "Appointments created successfully.",
+                Message = "Appointment created successfully.",
                 Result = appointments.Id
             };
         }

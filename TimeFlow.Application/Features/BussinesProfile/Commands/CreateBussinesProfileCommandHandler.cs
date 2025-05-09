@@ -1,4 +1,4 @@
-﻿using MediatR; 
+using MediatR; 
 using TimeFlow.Application.Features.Category.Commands;
 using TimeFlow.Application.Responses;
 using TimeFlow.Domain.Repositories;
@@ -34,7 +34,7 @@ namespace TimeFlow.Application.Features.BussinesProfile.Commands
             Domain.Aggregates.UsersAggregates.BusinessProfile bussinesProfiles = Domain.Aggregates.UsersAggregates.BusinessProfile.Create(request.BusinessName, request.Email,request.PhoneNumber, request.Website, request.Description,request.LogoUrl, request.IndustryId, request.UserDetailsId, request.NIPT);
 
 
-            await _bussinesProfileRepository.Add(bussinesProfiles, cancellationToken).ConfigureAwait(false);
+            await _bussinesProfileRepository.AddAsync(bussinesProfiles, cancellationToken).ConfigureAwait(false);
             try
             {
                 await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);

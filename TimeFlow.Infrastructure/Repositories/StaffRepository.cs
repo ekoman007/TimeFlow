@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TimeFlow.Domain.Aggregates.UsersAggregates;
-using TimeFlow.Infrastructure.Contracts;
+using TimeFlow.Domain.Repositories;
 using TimeFlow.Infrastructure.Database;
 
 namespace TimeFlow.Infrastructure.Repositories

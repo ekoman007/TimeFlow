@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using TimeFlow.Application.Features.Staffs.DTOs;
 using TimeFlow.Application.Features.Staffs.Queries;
 using TimeFlow.Application.Paged;
@@ -17,7 +17,7 @@ public class StaffListQueryHandler : IRequestHandler<StaffListQuery, GeneralResp
 
     public async Task<GeneralResponse<PagedResult<StaffModel>>> Handle(StaffListQuery query, CancellationToken cancellationToken = default)
     {
-        IQueryable<Staff> queryable = _staffRepository.Get(cancellationToken: cancellationToken);
+        var queryable = _staffRepository.GetQueryable(cancellationToken);
 
         var pagedResult = await queryable.ToPagedResultAsync(
             query.PageNumber,
@@ -42,3 +42,5 @@ public class StaffListQueryHandler : IRequestHandler<StaffListQuery, GeneralResp
         };
     }
 }
+
+

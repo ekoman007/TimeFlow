@@ -1,4 +1,4 @@
-﻿using MediatR; 
+using MediatR; 
 using TimeFlow.Application.Features.Category.Commands;
 using TimeFlow.Application.Responses;
 using TimeFlow.Domain.Repositories;
@@ -21,7 +21,7 @@ namespace TimeFlow.Application.Features.BussinesProfile.Commands
         {
             ArgumentNullException.ThrowIfNull(request);
 
-            var bussinesProfileExists = await _bussinesProfileRepository.GetById(request.Id, cancellationToken: cancellationToken);
+            var bussinesProfileExists = await _bussinesProfileRepository.GetByIdAsync(request.Id, cancellationToken);
 
             bussinesProfileExists.ChangeBussinesName(request.BusinessName);
             bussinesProfileExists.ChangeDescription(request.Description);
@@ -32,7 +32,7 @@ namespace TimeFlow.Application.Features.BussinesProfile.Commands
             bussinesProfileExists.ChangeIndustry(request.IndustryId);
             bussinesProfileExists.ChangeUserDetails(request.UserDetailsId);
 
-            await _bussinesProfileRepository.Update(bussinesProfileExists, cancellationToken).ConfigureAwait(false);
+            await _bussinesProfileRepository.UpdateAsync(bussinesProfileExists, cancellationToken).ConfigureAwait(false);
             await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
 
             return new GeneralResponse<int>

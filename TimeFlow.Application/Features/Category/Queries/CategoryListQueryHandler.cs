@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using TimeFlow.Application.Features.Category.DTOs;
 using TimeFlow.Application.Features.Category.Queries;
 using TimeFlow.Application.Paged;
@@ -17,7 +17,7 @@ public class CategoryListQueryHandler : IRequestHandler<CategoryListQuery, Gener
 
     public async Task<GeneralResponse<PagedResult<CategoryModel>>> Handle(CategoryListQuery query, CancellationToken cancellationToken = default)
     {
-        IQueryable<Category> queryable = _categoryRepository.Get(cancellationToken: cancellationToken);
+        var queryable = _categoryRepository.GetQueryable(cancellationToken);
 
         // Paginimi dhe mapping me ToPagedResultAsync
         var pagedResult = await queryable.ToPagedResultAsync(
@@ -42,3 +42,5 @@ public class CategoryListQueryHandler : IRequestHandler<CategoryListQuery, Gener
         };
     }
 }
+
+

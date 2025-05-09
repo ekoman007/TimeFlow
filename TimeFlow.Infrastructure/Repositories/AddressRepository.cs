@@ -1,8 +1,8 @@
-﻿
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Threading;
+using System.Threading.Tasks;
 using TimeFlow.Domain.Aggregates.UsersAggregates;
-using TimeFlow.Infrastructure.Contracts;
+using TimeFlow.Domain.Repositories;
 using TimeFlow.Infrastructure.Database;
 
 namespace TimeFlow.Infrastructure.Repositories
@@ -16,11 +16,9 @@ namespace TimeFlow.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<bool> GetAddressByNameAsync(string name, CancellationToken cancellationToken)
+        public async Task<bool> GetAddressByStreetAsync(string street, CancellationToken cancellationToken)
         {
-            return await _dbContext.Addresses.AnyAsync(u => u.Street == name, cancellationToken);
-        } 
-
-
+            return await _dbContext.Addresses.AnyAsync(u => u.Street == street, cancellationToken);
+        }
     }
 }

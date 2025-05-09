@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using MediatR;
 using TimeFlow.Application.Commands.Roles.Command;
 using TimeFlow.Application.Responses;
@@ -37,7 +37,7 @@ namespace TimeFlow.Application.Features.Roles.Commands
 
             Role role = Role.Create(request.RoleName, request.Description);
 
-            await _roleRepository.Add(role, cancellationToken).ConfigureAwait(false);
+            await _roleRepository.AddAsync(role, cancellationToken).ConfigureAwait(false);
             await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
 
             return new GeneralResponse<int>
@@ -49,3 +49,4 @@ namespace TimeFlow.Application.Features.Roles.Commands
         }
     }
 }
+

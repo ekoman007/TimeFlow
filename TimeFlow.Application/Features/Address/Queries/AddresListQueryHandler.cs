@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using TimeFlow.Application.Features.Address.DTOs;
 using TimeFlow.Application.Features.Address.Queries;
 using TimeFlow.Application.Paged;
@@ -17,7 +17,7 @@ public class AddressListQueryHandler : IRequestHandler<AddresListQuery, GeneralR
 
     public async Task<GeneralResponse<PagedResult<AddressModel>>> Handle(AddresListQuery query, CancellationToken cancellationToken = default)
     {
-        IQueryable<Address> queryable = _addressRepository.Get(cancellationToken: cancellationToken);
+        var queryable = _addressRepository.GetQueryable(cancellationToken);
 
         var pagedResult = await queryable.ToPagedResultAsync(
             query.PageNumber,
@@ -46,3 +46,5 @@ public class AddressListQueryHandler : IRequestHandler<AddresListQuery, GeneralR
         };
     }
 }
+
+

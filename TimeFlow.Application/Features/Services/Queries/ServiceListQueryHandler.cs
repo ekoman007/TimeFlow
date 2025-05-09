@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using TimeFlow.Application.Features.Services.DTOs;
 using TimeFlow.Application.Features.Services.Queries;
 using TimeFlow.Application.Paged;
@@ -17,7 +17,7 @@ public class ServiceListQueryHandler : IRequestHandler<ServiceListQuery, General
 
     public async Task<GeneralResponse<PagedResult<ServiceModel>>> Handle(ServiceListQuery query, CancellationToken cancellationToken = default)
     {
-        IQueryable<Service> queryable = _serviceRepository.Get(cancellationToken: cancellationToken);
+        var queryable = _serviceRepository.GetQueryable(cancellationToken);
 
         // Paginimi dhe mapping me ToPagedResultAsync
         var pagedResult = await queryable.ToPagedResultAsync(

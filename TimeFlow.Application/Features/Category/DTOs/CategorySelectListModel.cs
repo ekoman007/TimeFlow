@@ -1,4 +1,4 @@
-﻿ 
+ 
 
 namespace TimeFlow.Application.Features.Category.DTOs
 {
@@ -8,3 +8,4 @@ namespace TimeFlow.Application.Features.Category.DTOs
         public string Name { get; set; }
     }
 }
+

@@ -1,4 +1,4 @@
-﻿using MediatR; 
+using MediatR; 
 using TimeFlow.Application.Features.Address.DTOs;
 using TimeFlow.Application.Features.BussinesProfile.DTOs; 
 using TimeFlow.Application.Responses; 
@@ -18,7 +18,7 @@ namespace TimeFlow.Application.Features.Address.Queries
         public async Task<GeneralResponse<AddressModel>> Handle(AddresByIdQuery query, CancellationToken cancellationToken = default)
         {
             // Merrni rolin me ID nga repository
-            var address = await _addressRepository.GetById(query.Id, cancellationToken: cancellationToken).ConfigureAwait(false);
+            var address = await _addressRepository.GetByIdAsync(query.Id, cancellationToken).ConfigureAwait(false);
 
 
             if (address == null)

@@ -1,23 +1,23 @@
-﻿using MediatR;
+using MediatR;
 using TimeFlow.Application.Features.BussinesProfile.DTOs;
 using TimeFlow.Application.Features.BussinesProfile.Queries;
 using TimeFlow.Application.Paged;
 using TimeFlow.Application.Responses;
-using TimeFlow.Domain.Aggregates.UsersAggregates;
+using TimeFlow.Domain.Aggregates.BusinessAggregates;
 using TimeFlow.Infrastructure.Contracts;
 
 public class BusinessProfileListQueryHandler : IRequestHandler<BusinessProfileListQuery, GeneralResponse<PagedResult<BussinesProfileModel>>>
 {
-    private readonly IBussinesProfileRepository _bussinessProfileRepository;
+    private readonly IBussinesProfileRepository _bussinesProfileRepository;
 
-    public BusinessProfileListQueryHandler(IBussinesProfileRepository bussinessProfileRepository)
+    public BusinessProfileListQueryHandler(IBussinesProfileRepository bussinesProfileRepository)
     {
-        _bussinessProfileRepository = bussinessProfileRepository;
+        _bussinesProfileRepository = bussinesProfileRepository;
     }
 
     public async Task<GeneralResponse<PagedResult<BussinesProfileModel>>> Handle(BusinessProfileListQuery query, CancellationToken cancellationToken = default)
     {
-        IQueryable<BusinessProfile> queryable = _bussinessProfileRepository.Get(cancellationToken: cancellationToken);
+        var queryable = _bussinesProfileRepository.GetQueryable(cancellationToken);
 
         // Paginimi dhe mapping me ToPagedResultAsync
         var pagedResult = await queryable.ToPagedResultAsync(
@@ -32,8 +32,8 @@ public class BusinessProfileListQueryHandler : IRequestHandler<BusinessProfileLi
                 Website = x.Website,
                 Description = x.Description,
                 LogoUrl = x.LogoUrl,
-                IndustryId = x.IndustryId,
-                UserDetailsId = x.UserDetailsId
+                UserDetailsId = x.UserDetailsId,
+                IndustryId = x.IndustryId
             },
             cancellationToken
         );
@@ -41,8 +41,10 @@ public class BusinessProfileListQueryHandler : IRequestHandler<BusinessProfileLi
         return new GeneralResponse<PagedResult<BussinesProfileModel>>
         {
             Success = true,
-            Message = "Bussines profile list.",
+            Message = "Business profile list.",
             Result = pagedResult
         };
     }
 }
+
+

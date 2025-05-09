@@ -1,4 +1,4 @@
-﻿using MediatR; 
+using MediatR; 
 using TimeFlow.Application.Commands.Roles.Command;
 using TimeFlow.Application.Responses;
 using TimeFlow.Domain.Repositories;
@@ -21,12 +21,12 @@ namespace TimeFlow.Application.Features.Roles.Commands
         {
             ArgumentNullException.ThrowIfNull(request);
 
-            var roleExists = await _roleRepository.GetById(request.Id, cancellationToken : cancellationToken);
+            var roleExists = await _roleRepository.GetByIdAsync(request.Id, cancellationToken : cancellationToken);
 
             roleExists.ChangeRoleName(request.RoleName);
             roleExists.ChangeDescription(request.Description);
 
-            await _roleRepository.Update(roleExists, cancellationToken).ConfigureAwait(false);
+            await _roleRepository.UpdateAsync(roleExists, cancellationToken).ConfigureAwait(false);
             await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
 
             return new GeneralResponse<int>

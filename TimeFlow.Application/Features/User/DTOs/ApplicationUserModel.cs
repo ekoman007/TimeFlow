@@ -1,4 +1,4 @@
-﻿ 
+ 
 
 namespace TimeFlow.Application.Features.User.DTOs
 {
@@ -13,3 +13,4 @@ namespace TimeFlow.Application.Features.User.DTOs
         public string RoleName { get;  set; }
     }
 }
+

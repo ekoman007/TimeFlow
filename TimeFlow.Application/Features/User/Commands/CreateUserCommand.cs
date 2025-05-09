@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using TimeFlow.Application.Responses;
 using TimeFlow.SharedKernel;
 
@@ -12,3 +12,4 @@ namespace TimeFlow.Application.Features.User.Command
         public bool IsBussines { get; set; }
     }
 }
+

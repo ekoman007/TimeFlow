@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -56,7 +56,7 @@ namespace TimeFlow.Application.Features.RefreshToken.Queries
             }
             _logger.LogInformation("Refresh token validation passed for User ID: {UserId}", refreshTokenEntity.UserId);
 
-            var user = await _userRepository.GetById(refreshTokenEntity.UserId, cancellationToken: cancellationToken);
+            var user = await _userRepository.GetByIdAsync(refreshTokenEntity.UserId, cancellationToken);
              _logger.LogInformation("User found for refresh token: {UserFound}", user != null);
             if (user == null)
             {

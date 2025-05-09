@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TimeFlow.Application.Features.Industry.DTOs;
 using TimeFlow.Application.Features.Roles.DTOs; 
@@ -20,7 +20,7 @@ namespace TimeFlow.Application.Features.Industry.Queris
             // Merrni rolet nga repository
 
             var industryList = await _industryRepository
-                .Get(cancellationToken: cancellationToken)
+                .GetQueryable(cancellationToken)
                 .ToListAsync(cancellationToken);
 
             // Kthejeni vetëm Id dhe RoleName për çdo rol
@@ -32,3 +32,4 @@ namespace TimeFlow.Application.Features.Industry.Queris
         }
     }
 }
+

@@ -1,13 +1,11 @@
-﻿ 
-
-namespace TimeFlow.Domain.Aggregates.Enums
+﻿namespace TimeFlow.Domain.Aggregates.Enums
 {
     public enum AppointmentStatus
     {
         Pending,
-        Approved,
-        Canceled,
-        Completed
+        Confirmed,
+        Completed,
+        Cancelled,
+        NoShow
     }
-
-}
+} 

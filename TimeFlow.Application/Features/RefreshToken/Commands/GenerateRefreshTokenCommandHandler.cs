@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using Microsoft.Extensions.Configuration; 
 using TimeFlow.Application.Responses; 
 using TimeFlow.Domain.Repositories;
@@ -43,3 +43,4 @@ namespace TimeFlow.Application.Features.RefreshToken.Commands
         }
     }
 }
+

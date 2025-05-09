@@ -1,4 +1,4 @@
-﻿using MediatR; 
+using MediatR; 
 using TimeFlow.Application.Responses;
 using TimeFlow.Domain.Aggregates.UsersAggregates;
 using TimeFlow.Domain.Repositories;
@@ -29,7 +29,7 @@ namespace TimeFlow.Application.Features.Staffs.Commands
                 request.RoleId );
 
 
-            await _staffRepository.Add(staff, cancellationToken).ConfigureAwait(false);
+            await _staffRepository.AddAsync(staff, cancellationToken).ConfigureAwait(false);
             await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
 
             return new GeneralResponse<int>

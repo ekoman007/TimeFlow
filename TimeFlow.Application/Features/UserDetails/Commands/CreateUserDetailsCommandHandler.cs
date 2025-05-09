@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using MediatR; 
 using TimeFlow.Application.Responses;
 using TimeFlow.Domain.Aggregates.UsersAggregates;
@@ -16,7 +16,6 @@ namespace TimeFlow.Application.Features.UserDetails.Commands
         public CreateUserDetailsCommandHandler(IUnitOfWork unitOfWork, 
             IUserDetailsRepository userDetailsRepository,
             IUserRepository userRepository
-
             )
         {
             _unitOfWork = unitOfWork; 
@@ -27,7 +26,8 @@ namespace TimeFlow.Application.Features.UserDetails.Commands
         public async Task<GeneralResponse<int>> Handle(CreateUserDetailsCommand request, CancellationToken cancellationToken)
         {
             ArgumentNullException.ThrowIfNull(request);
-            // ketu duhet nje check qe nese user nuk eshte active mos me leju mu regjistru userdetails
+            
+            // Check if user exists
             var checkUserId = await _userRepository.ExistsByIDAsync(request.UserId, cancellationToken: cancellationToken);
             if (!checkUserId)
             {
@@ -38,21 +38,21 @@ namespace TimeFlow.Application.Features.UserDetails.Commands
                 };
             }
 
-            //KEtu duhet me check me id a ekziston jo me email ose me email
-            var userExists = await _userDetailsRepository.GetUserDetailsByNameAsync(request.FullName, cancellationToken);
-            if (userExists)
+            // Check if user details already exist with this name
+            var existingUserDetails = await _userDetailsRepository.GetUserDetailsByNameAsync(request.FullName, cancellationToken);
+            if (existingUserDetails != null)
             {
                 return new GeneralResponse<int>
                 {
                     Success = false,
-                    Message = $"User with this ID {request.UserId} already exists."
+                    Message = $"User details with name '{request.FullName}' already exists."
                 };
             }
 
             ApplicationUserDetails userDetails = ApplicationUserDetails.Create(request.FullName, 
                 request.PhoneNumber, request.DateOfBirth, request.ProfilePicture, request.UserId);
 
-            await _userDetailsRepository.Add(userDetails, cancellationToken).ConfigureAwait(false);
+            await _userDetailsRepository.AddAsync(userDetails, cancellationToken).ConfigureAwait(false);
             await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
 
             return new GeneralResponse<int>
@@ -64,3 +64,4 @@ namespace TimeFlow.Application.Features.UserDetails.Commands
         }
     }
 }
+

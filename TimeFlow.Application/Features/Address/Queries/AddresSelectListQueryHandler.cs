@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using Microsoft.EntityFrameworkCore; 
 using TimeFlow.Application.Features.Address.DTOs; 
 using TimeFlow.Infrastructure.Contracts;
@@ -19,7 +19,7 @@ namespace TimeFlow.Application.Features.Address.Queries
             // Merrni rolet nga repository
 
             var addressList = await _addressRepository
-                .Get(cancellationToken: cancellationToken)
+                .GetQueryable(cancellationToken)
                 .ToListAsync(cancellationToken);
 
             // Kthejeni vetëm Id dhe RoleName për çdo rol

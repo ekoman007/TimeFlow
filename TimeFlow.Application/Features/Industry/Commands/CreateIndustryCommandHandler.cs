@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using MediatR; 
 using TimeFlow.Application.Responses; 
 using TimeFlow.Domain.Repositories;
@@ -36,7 +36,7 @@ namespace TimeFlow.Application.Features.Industry.Commands
             Domain.Aggregates.UsersAggregates.Industry industries = Domain.Aggregates.UsersAggregates.Industry.Create(request.Name, request.Description, request.Code);
              
 
-            await _industryRepository.Add(industries, cancellationToken).ConfigureAwait(false);
+            await _industryRepository.AddAsync(industries, cancellationToken).ConfigureAwait(false);
             await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
 
             return new GeneralResponse<int>

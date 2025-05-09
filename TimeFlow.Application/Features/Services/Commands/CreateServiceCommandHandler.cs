@@ -1,4 +1,4 @@
-﻿using MediatR;  
+using MediatR;  
 using TimeFlow.Application.Responses;
 using TimeFlow.Domain.Repositories;
 using TimeFlow.Infrastructure.Contracts;
@@ -38,7 +38,7 @@ namespace TimeFlow.Application.Features.Services.Commands
                 request.BusinessProfileId);
 
 
-            await _serviceRepository.Add(address, cancellationToken).ConfigureAwait(false);
+            await _serviceRepository.AddAsync(address, cancellationToken).ConfigureAwait(false);
             await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
 
             return new GeneralResponse<int>

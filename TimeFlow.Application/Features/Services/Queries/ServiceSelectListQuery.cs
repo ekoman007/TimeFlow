@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,3 +12,4 @@ namespace TimeFlow.Application.Features.Services.Queries
     public class ServiceSelectListQuery : IRequest<List<ServiceSelectListModel>> { }
      
 }
+

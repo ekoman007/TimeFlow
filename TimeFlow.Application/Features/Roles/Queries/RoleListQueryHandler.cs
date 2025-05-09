@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TimeFlow.Application.Features.Roles.DTOs;
 using TimeFlow.Application.Paged;
@@ -18,7 +18,7 @@ namespace TimeFlow.Application.Features.Roles.Queries
         } 
         public async Task<GeneralResponse<PagedResult<RolesModel>>> Handle(RoleListQuery query, CancellationToken cancellationToken = default)
         {
-            IQueryable<Role> queryable = _roleRepository.Get(cancellationToken: cancellationToken);
+            var queryable = _roleRepository.GetQueryable(cancellationToken);
 
             var pagedResult = await queryable.ToPagedResultAsync(
                 query.PageNumber,
@@ -45,3 +45,4 @@ namespace TimeFlow.Application.Features.Roles.Queries
 
     }
 }
+

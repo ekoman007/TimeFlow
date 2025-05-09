@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using MediatR;
 using TimeFlow.Application.Features.User.Command;
 using TimeFlow.Application.Responses;
@@ -31,7 +31,7 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Gener
     public async Task<GeneralResponse<int>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(request);
-        //var checkRoleExist = await _roleRepository.GetById(request.RoleId, cancellationToken: cancellationToken);
+        //var checkRoleExist = await _roleRepository.GetByIdAsync(request.RoleId, cancellationToken);
         //if (checkRoleExist == null)
         //{
         //    return new GeneralResponse<int>
@@ -57,7 +57,7 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Gener
         // Create the User object with the hashed password
         ApplicationUser user = ApplicationUser.Create(request.Username, request.Email, hashedPassword, request.IsBussines);
 
-        await _userRepository.Add(user, cancellationToken).ConfigureAwait(false);
+        await _userRepository.AddAsync(user, cancellationToken).ConfigureAwait(false);
 
         await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
 
@@ -69,3 +69,4 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Gener
         };
     }
 }
+

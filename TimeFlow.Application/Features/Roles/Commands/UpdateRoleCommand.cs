@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using TimeFlow.Application.Responses;
 
 namespace TimeFlow.Application.Commands.Roles.Command
@@ -10,3 +10,4 @@ namespace TimeFlow.Application.Commands.Roles.Command
         public string Description { get; set; }
     }
 }
+

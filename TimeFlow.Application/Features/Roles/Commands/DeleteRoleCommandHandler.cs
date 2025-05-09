@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ namespace TimeFlow.Application.Features.Roles.Commands
         {
             ArgumentNullException.ThrowIfNull(request);
             ;
-            var roleExists = await _roleRepository.GetById(request.Id, cancellationToken: cancellationToken);
+            var roleExists = await _roleRepository.GetByIdAsync(request.Id, cancellationToken);
 
             if (roleExists == null)
             {
@@ -49,7 +49,7 @@ namespace TimeFlow.Application.Features.Roles.Commands
                 roleExists.ChangeStatusToDelete();
             }
 
-            await _roleRepository.Update(roleExists, cancellationToken).ConfigureAwait(false);
+            await _roleRepository.UpdateAsync(roleExists, cancellationToken).ConfigureAwait(false);
             await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
 
             return new GeneralResponse<int>

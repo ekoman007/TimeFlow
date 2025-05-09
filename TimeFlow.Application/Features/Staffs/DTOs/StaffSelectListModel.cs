@@ -1,4 +1,4 @@
-﻿ 
+ 
 
 namespace TimeFlow.Application.Features.Staffs.DTOs
 {
@@ -8,3 +8,4 @@ namespace TimeFlow.Application.Features.Staffs.DTOs
         public string Name { get; set; }
     }
 }
+

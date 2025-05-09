@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using TimeFlow.Application.Features.Industry.DTOs;
 using TimeFlow.Application.Features.Industry.Queris;
 using TimeFlow.Application.Paged;
@@ -17,7 +17,7 @@ public class IndustryListQueryHandler : IRequestHandler<IndustryListQuery, Gener
 
     public async Task<GeneralResponse<PagedResult<IndustryModel>>> Handle(IndustryListQuery query, CancellationToken cancellationToken = default)
     {
-        IQueryable<Industry> queryable = _industryRepository.Get(cancellationToken: cancellationToken);
+        var queryable = _industryRepository.GetQueryable(cancellationToken);
 
         // Paginimi dhe mapping me ToPagedResultAsync
         var pagedResult = await queryable.ToPagedResultAsync(
@@ -42,3 +42,5 @@ public class IndustryListQueryHandler : IRequestHandler<IndustryListQuery, Gener
         };
     }
 }
+
+

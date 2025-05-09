@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -26,7 +26,7 @@ namespace TimeFlow.Application.Features.Services.Queries
             // Merrni rolet nga repository
 
             var serviceList = await _serviceRepository
-                .Get(cancellationToken: cancellationToken)
+                .GetQueryable(cancellationToken)
                 .ToListAsync(cancellationToken);
 
             // Kthejeni vetëm Id dhe RoleName për çdo rol

@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using TimeFlow.Application.Features.Category.DTOs; 
 using TimeFlow.Application.Responses;
 
@@ -13,3 +13,4 @@ namespace TimeFlow.Application.Features.Category.Queries
         }
     }
 }
+

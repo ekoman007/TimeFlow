@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +26,7 @@ namespace TimeFlow.Application.Features.Address.Commands
         {
             ArgumentNullException.ThrowIfNull(request);
 
-            var addressExisrts = await _addressRepository.GetById(request.Id, cancellationToken: cancellationToken);
+            var addressExisrts = await _addressRepository.GetByIdAsync(request.Id, cancellationToken);
 
             if (addressExisrts.IsActive == false)
             {
@@ -38,7 +38,7 @@ namespace TimeFlow.Application.Features.Address.Commands
             }
 
 
-            await _addressRepository.Update(addressExisrts, cancellationToken).ConfigureAwait(false);
+            await _addressRepository.UpdateAsync(addressExisrts, cancellationToken).ConfigureAwait(false);
             await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
 
             return new GeneralResponse<int>

@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,3 +11,4 @@ namespace TimeFlow.Application.Features.BussinesProfile.Queries
 {
     public class BusinessProfileSelectListQuery : IRequest<List<BussinesProfileSelectListModel>> { }
 }
+

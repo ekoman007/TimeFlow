@@ -1,4 +1,4 @@
-﻿namespace TimeFlow.Application.Features.Roles.DTOs
+namespace TimeFlow.Application.Features.Roles.DTOs
 {
     public class RoleSelectListModel
     {
@@ -6,3 +6,4 @@
         public string RoleName { get; set; }
     }
 }
+

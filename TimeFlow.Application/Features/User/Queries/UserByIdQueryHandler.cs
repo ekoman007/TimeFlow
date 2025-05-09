@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using TimeFlow.Application.Features.User.DTOs;
 using TimeFlow.Application.Responses;
 using TimeFlow.Infrastructure.Contracts;
@@ -17,7 +17,7 @@ namespace TimeFlow.Application.Features.User.Query
         public async Task<GeneralResponse<ApplicationUserModel>> Handle(UserByIdQuery query, CancellationToken cancellationToken = default)
         {
             // Merrni përdoruesin me ID nga repository
-            var user = await _userRepository.GetById(query.Id, cancellationToken: cancellationToken).ConfigureAwait(false);
+            var user = await _userRepository.GetByIdAsync(query.Id, cancellationToken).ConfigureAwait(false);
 
             if (user == null)
             {
@@ -48,3 +48,4 @@ namespace TimeFlow.Application.Features.User.Query
         }
     }
 }
+

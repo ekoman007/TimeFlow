@@ -1,4 +1,4 @@
-﻿
+
 
 using MediatR;
 using TimeFlow.Application.Responses;
@@ -25,3 +25,4 @@ namespace TimeFlow.Application.Features.Services.Commands
         public int BusinessProfileId { get; set; }
     }
 }
+

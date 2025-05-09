@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TimeFlow.Application.Features.User.DTOs;
 using TimeFlow.Application.Features.User.Query;
@@ -18,7 +18,7 @@ public class UserListQueryHandler : IRequestHandler<UserListQuery, GeneralRespon
 
     public async Task<GeneralResponse<PagedResult<ApplicationUserModel>>> Handle(UserListQuery query, CancellationToken cancellationToken = default)
     {
-        IQueryable<ApplicationUser> queryable = _userRepository.Get(cancellationToken: cancellationToken)
+        IQueryable<ApplicationUser> queryable = _userRepository.GetQueryable(cancellationToken)
         .Include(u => u.Role);  
 
 
@@ -70,3 +70,4 @@ public class UserListQueryHandler : IRequestHandler<UserListQuery, GeneralRespon
         };
     }
 }
+

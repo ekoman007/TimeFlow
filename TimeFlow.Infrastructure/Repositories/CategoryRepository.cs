@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore; 
+﻿using Microsoft.EntityFrameworkCore;
+using System.Threading;
+using System.Threading.Tasks;
 using TimeFlow.Domain.Aggregates.UsersAggregates;
-using TimeFlow.Infrastructure.Contracts;
+using TimeFlow.Domain.Repositories;
 using TimeFlow.Infrastructure.Database;
 
 namespace TimeFlow.Infrastructure.Repositories
@@ -17,7 +19,6 @@ namespace TimeFlow.Infrastructure.Repositories
         public async Task<bool> GetCategoryByNameAsync(string name, CancellationToken cancellationToken)
         {
             return await _dbContext.Categories.AnyAsync(u => u.Name == name, cancellationToken);
-        } 
-
+        }
     }
 }

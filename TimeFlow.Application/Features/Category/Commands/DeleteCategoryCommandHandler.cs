@@ -1,4 +1,4 @@
-﻿using MediatR;  
+using MediatR;  
 using TimeFlow.Application.Responses;
 using TimeFlow.Domain.Repositories;
 using TimeFlow.Infrastructure.Contracts;
@@ -20,7 +20,7 @@ namespace TimeFlow.Application.Features.Category.Commands
         {
             ArgumentNullException.ThrowIfNull(request);
 
-            var categoryExisrts = await _categoryRepository.GetById(request.Id, cancellationToken: cancellationToken);
+            var categoryExisrts = await _categoryRepository.GetByIdAsync(request.Id, cancellationToken);
 
             if (categoryExisrts.IsActive == false)
             {
@@ -32,7 +32,7 @@ namespace TimeFlow.Application.Features.Category.Commands
             }
 
 
-            await _categoryRepository.Update(categoryExisrts, cancellationToken).ConfigureAwait(false);
+            await _categoryRepository.UpdateAsync(categoryExisrts, cancellationToken).ConfigureAwait(false);
             await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
 
             return new GeneralResponse<int>

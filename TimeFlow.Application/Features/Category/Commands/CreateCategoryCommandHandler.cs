@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using MediatR; 
 using TimeFlow.Application.Responses;
 using TimeFlow.Domain.Repositories;
@@ -34,7 +34,7 @@ namespace TimeFlow.Application.Features.Category.Commands
             Domain.Aggregates.UsersAggregates.Category categories = Domain.Aggregates.UsersAggregates.Category.Create(request.Name, request.Description, request.Code, request.IndustryId);
 
 
-            await _categoryRepository.Add(categories, cancellationToken).ConfigureAwait(false);
+            await _categoryRepository.AddAsync(categories, cancellationToken).ConfigureAwait(false);
             await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
 
             return new GeneralResponse<int>

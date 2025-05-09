@@ -1,4 +1,4 @@
-﻿using MediatR; 
+using MediatR; 
 using TimeFlow.Application.Responses;
 using TimeFlow.Domain.Repositories;
 using TimeFlow.Infrastructure.Contracts; 
@@ -20,7 +20,7 @@ namespace TimeFlow.Application.Features.User.Command
         {
             ArgumentNullException.ThrowIfNull(request);
 
-            var user = await _userRepository.GetById(request.Id, cancellationToken: cancellationToken);
+            var user = await _userRepository.GetByIdAsync(request.Id, cancellationToken);
             if (user == null)
             {
                 return new GeneralResponse<int>
@@ -34,7 +34,7 @@ namespace TimeFlow.Application.Features.User.Command
 
            
 
-            await _userRepository.Update(user, cancellationToken).ConfigureAwait(false);
+            await _userRepository.UpdateAsync(user, cancellationToken).ConfigureAwait(false);
             await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
 
             return new GeneralResponse<int>

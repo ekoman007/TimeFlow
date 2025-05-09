@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +24,7 @@ namespace TimeFlow.Application.Features.Industry.Queris
         public async Task<GeneralResponse<IndustryModel>> Handle(IndustryByIdQuery query, CancellationToken cancellationToken = default)
         {
             // Merrni rolin me ID nga repository
-            var industry = await _industryRepository.GetById(query.Id, cancellationToken: cancellationToken).ConfigureAwait(false);
+            var industry = await _industryRepository.GetByIdAsync(query.Id, cancellationToken).ConfigureAwait(false);
 
 
             if (industry == null)

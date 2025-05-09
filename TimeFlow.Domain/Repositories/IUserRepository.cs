@@ -1,12 +1,13 @@
-﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using TimeFlow.Domain.Aggregates.UsersAggregates;
 
-namespace TimeFlow.Infrastructure.Contracts
+namespace TimeFlow.Domain.Repositories
 {
     public interface IUserRepository : IRepository<ApplicationUser, int>
     {
         Task<bool> ExistsByEmailAsync(string email, CancellationToken cancellationToken);
-        Task<bool> ExistsByIDAsync(int Id, CancellationToken cancellationToken);
+        Task<bool> ExistsByIDAsync(int id, CancellationToken cancellationToken);
         Task<ApplicationUser?> GetUserByEmailAsync(string email, CancellationToken cancellationToken);
     }
-}
+} 

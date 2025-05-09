@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using Microsoft.EntityFrameworkCore; 
 using TimeFlow.Application.Features.User.DTOs; 
 using TimeFlow.Infrastructure.Contracts; 
@@ -19,7 +19,7 @@ namespace TimeFlow.Application.Features.User.Queries
 
 
             var user = await _userRepository
-             .Get(cancellationToken: cancellationToken)
+             .GetQueryable(cancellationToken)
              .ToListAsync(cancellationToken);
 
             return user.Select(user => new ApplicationUserModelSelectList
@@ -31,3 +31,4 @@ namespace TimeFlow.Application.Features.User.Queries
         }
     }
 }
+

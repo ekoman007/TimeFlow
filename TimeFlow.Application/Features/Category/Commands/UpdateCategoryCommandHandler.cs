@@ -1,4 +1,4 @@
-﻿using MediatR; 
+using MediatR; 
 using TimeFlow.Application.Features.Industry.Commands;
 using TimeFlow.Application.Responses;
 using TimeFlow.Domain.Repositories;
@@ -21,14 +21,14 @@ namespace TimeFlow.Application.Features.Category.Commands
         {
             ArgumentNullException.ThrowIfNull(request);
 
-            var categoryExists = await _categoryRepository.GetById(request.Id, cancellationToken: cancellationToken);
+            var categoryExists = await _categoryRepository.GetByIdAsync(request.Id, cancellationToken);
 
             categoryExists.ChangeName(request.Name);
             categoryExists.ChangeDescription(request.Description);
             categoryExists.ChangeCode(request.Code);
             categoryExists.ChangeIndustry(request.IndustryId);
 
-            await _categoryRepository.Update(categoryExists, cancellationToken).ConfigureAwait(false);
+            await _categoryRepository.UpdateAsync(categoryExists, cancellationToken).ConfigureAwait(false);
             await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
 
             return new GeneralResponse<int>

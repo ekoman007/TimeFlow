@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TimeFlow.Application.Features.Category.DTOs;  
 using TimeFlow.Infrastructure.Contracts;
@@ -19,7 +19,7 @@ namespace TimeFlow.Application.Features.Category.Queries
             // Merrni rolet nga repository
 
             var categoryList = await _categoryRepository
-                .Get(cancellationToken: cancellationToken)
+                .GetQueryable(cancellationToken)
                 .ToListAsync(cancellationToken);
 
             // Kthejeni vetëm Id dhe RoleName për çdo rol
@@ -31,3 +31,4 @@ namespace TimeFlow.Application.Features.Category.Queries
         }
     }
 }
+

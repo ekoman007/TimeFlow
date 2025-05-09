@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +29,7 @@ namespace TimeFlow.Application.Features.Address.Commands
             Domain.Aggregates.UsersAggregates.Address bussinesProfiles = Domain.Aggregates.UsersAggregates.Address.Create(request.Street, request.City, request.Country, request.ZipCode, request.Latitude, request.Longitude, request.IsPrimary, request.ApplicationUserDetailsId, request.BusinessProfileId);
 
 
-            await _addressRepository.Add(bussinesProfiles, cancellationToken).ConfigureAwait(false);
+            await _addressRepository.AddAsync(bussinesProfiles, cancellationToken).ConfigureAwait(false);
             await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
 
             return new GeneralResponse<int>

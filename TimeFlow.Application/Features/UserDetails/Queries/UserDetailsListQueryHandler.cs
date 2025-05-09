@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using TimeFlow.Application.Features.UserDetails.DTOs;
 using TimeFlow.Application.Features.UserDetails.Queries;
 using TimeFlow.Application.Paged;
@@ -17,7 +17,7 @@ public class UserDetailsListQueryHandler : IRequestHandler<UserDetailsListQuery,
 
     public async Task<GeneralResponse<PagedResult<UserDetailsModel>>> Handle(UserDetailsListQuery query, CancellationToken cancellationToken = default)
     {
-        IQueryable<ApplicationUserDetails> queryable = _userDetailsRepository.Get(cancellationToken: cancellationToken);
+        var queryable = _userDetailsRepository.GetQueryable(cancellationToken);
 
         var pagedResult = await queryable.ToPagedResultAsync(
             query.PageNumber,
@@ -28,6 +28,7 @@ public class UserDetailsListQueryHandler : IRequestHandler<UserDetailsListQuery,
                 FullName = x.FullName,
                 PhoneNumber = x.PhoneNumber,
                 DateOfBirth = x.DateOfBirth,
+                ProfilePicture = x.ProfilePicture,
                 UserId = x.UserId
             },
             cancellationToken
@@ -36,8 +37,10 @@ public class UserDetailsListQueryHandler : IRequestHandler<UserDetailsListQuery,
         return new GeneralResponse<PagedResult<UserDetailsModel>>
         {
             Success = true,
-            Message = "User details list.",
+            Message = "UserDetail list.",
             Result = pagedResult
         };
     }
 }
+
+

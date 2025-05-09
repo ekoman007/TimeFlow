@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,13 +26,13 @@ namespace TimeFlow.Application.Features.Industry.Commands
         {
             ArgumentNullException.ThrowIfNull(request);
 
-            var industryExists = await _industryRepository.GetById(request.Id, cancellationToken: cancellationToken);
+            var industryExists = await _industryRepository.GetByIdAsync(request.Id, cancellationToken);
 
             industryExists.ChangeName(request.Name);
             industryExists.ChangeDescription(request.Description);
             industryExists.ChangeCode(request.Code);
 
-            await _industryRepository.Update(industryExists, cancellationToken).ConfigureAwait(false);
+            await _industryRepository.UpdateAsync(industryExists, cancellationToken).ConfigureAwait(false);
             await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
 
             return new GeneralResponse<int>

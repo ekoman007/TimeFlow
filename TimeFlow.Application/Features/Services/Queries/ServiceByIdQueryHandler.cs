@@ -1,4 +1,4 @@
-﻿using MediatR; 
+using MediatR; 
 using TimeFlow.Application.Features.Address.DTOs;
 using TimeFlow.Application.Features.Address.Queries;
 using TimeFlow.Application.Features.Services.DTOs;
@@ -20,7 +20,7 @@ namespace TimeFlow.Application.Features.Services.Queries
         public async Task<GeneralResponse<ServiceModel>> Handle(ServiceByIdQuery query, CancellationToken cancellationToken = default)
         {
             // Merrni rolin me ID nga repository
-            var service = await _serviceRepository.GetById(query.Id, cancellationToken: cancellationToken).ConfigureAwait(false);
+            var service = await _serviceRepository.GetByIdAsync(query.Id, cancellationToken).ConfigureAwait(false);
 
 
             if (service == null)

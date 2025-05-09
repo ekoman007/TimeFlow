@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,3 +16,4 @@ namespace TimeFlow.Application.Features.Industry.Commands
         public string Code { get; set; }
     }
 }
+

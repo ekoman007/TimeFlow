@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using MediatR; 
 using TimeFlow.Application.Responses;
 using TimeFlow.Domain.Repositories;
@@ -23,7 +23,7 @@ namespace TimeFlow.Application.Features.Industry.Commands
         {
             ArgumentNullException.ThrowIfNull(request);
              
-            var industryExist = await _industryRepository.GetById(request.Id, cancellationToken: cancellationToken);
+            var industryExist = await _industryRepository.GetByIdAsync(request.Id, cancellationToken);
 
             if (industryExist == null)
             {
@@ -43,7 +43,7 @@ namespace TimeFlow.Application.Features.Industry.Commands
                 industryExist.DeActivate();
             }
 
-            await _industryRepository.Update(industryExist, cancellationToken).ConfigureAwait(false);
+            await _industryRepository.UpdateAsync(industryExist, cancellationToken).ConfigureAwait(false);
             await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
 
             return new GeneralResponse<int>

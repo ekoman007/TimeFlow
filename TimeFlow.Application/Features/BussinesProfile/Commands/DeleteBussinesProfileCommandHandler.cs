@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +26,7 @@ namespace TimeFlow.Application.Features.BussinesProfile.Commands
         {
             ArgumentNullException.ThrowIfNull(request);
 
-            var bussinesProfileExisrts = await _bussinesProfileRepository.GetById(request.Id, cancellationToken: cancellationToken);
+            var bussinesProfileExisrts = await _bussinesProfileRepository.GetByIdAsync(request.Id, cancellationToken);
 
             if (bussinesProfileExisrts.IsActive == false)
             {
@@ -38,7 +38,7 @@ namespace TimeFlow.Application.Features.BussinesProfile.Commands
             }
 
 
-            await _bussinesProfileRepository.Update(bussinesProfileExisrts, cancellationToken).ConfigureAwait(false);
+            await _bussinesProfileRepository.UpdateAsync(bussinesProfileExisrts, cancellationToken).ConfigureAwait(false);
             await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
 
             return new GeneralResponse<int>

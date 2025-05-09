@@ -1,4 +1,4 @@
-﻿using MediatR; 
+using MediatR; 
 using TimeFlow.Application.Features.Staffs.DTOs;
 using TimeFlow.Application.Responses;
 using TimeFlow.Infrastructure.Contracts;
@@ -17,7 +17,7 @@ namespace TimeFlow.Application.Features.Staffs.Queries
         public async Task<GeneralResponse<StaffModel>> Handle(StaffByIdQuery query, CancellationToken cancellationToken = default)
         {
             // Merrni rolin me ID nga repository
-            var staff = await _staffRepository.GetById(query.Id, cancellationToken: cancellationToken).ConfigureAwait(false);
+            var staff = await _staffRepository.GetByIdAsync(query.Id, cancellationToken).ConfigureAwait(false);
 
 
             if (staff == null)

@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using TimeFlow.Application.Features.Roles.DTOs;
 using TimeFlow.Application.Responses;
 using TimeFlow.Infrastructure.Contracts;
@@ -17,7 +17,7 @@ namespace TimeFlow.Application.Features.Roles.Queries
         public async Task<GeneralResponse<RolesModel>> Handle(RoleByIdQuery query, CancellationToken cancellationToken = default)
         {
             // Merrni rolin me ID nga repository
-            var role = await _roleRepository.GetById(query.Id, cancellationToken: cancellationToken).ConfigureAwait(false);
+            var role = await _roleRepository.GetByIdAsync(query.Id, cancellationToken).ConfigureAwait(false);
 
 
             if (role == null)
@@ -49,3 +49,4 @@ namespace TimeFlow.Application.Features.Roles.Queries
         }
     }
 }
+

@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +25,7 @@ namespace TimeFlow.Application.Features.BussinesProfile.Queries
         public async Task<GeneralResponse<BussinesProfileModel>> Handle(BusinessProfileGetByIdQuery query, CancellationToken cancellationToken = default)
         {
             // Merrni rolin me ID nga repository
-            var businessProfile = await _bussinessProfileRepository.GetById(query.Id, cancellationToken: cancellationToken).ConfigureAwait(false);
+            var businessProfile = await _bussinessProfileRepository.GetByIdAsync(query.Id, cancellationToken).ConfigureAwait(false);
 
 
             if (businessProfile == null)

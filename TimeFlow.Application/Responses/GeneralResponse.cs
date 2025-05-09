@@ -1,4 +1,4 @@
-﻿namespace TimeFlow.Application.Responses
+namespace TimeFlow.Application.Responses
 {
     public class GeneralResponse<T>
     {
@@ -9,3 +9,4 @@
 
     
 }
+

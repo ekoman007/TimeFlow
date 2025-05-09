@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using TimeFlow.Application.Features.Category.DTOs;  
 using TimeFlow.Application.Responses;
 using TimeFlow.Infrastructure.Contracts;
@@ -17,7 +17,7 @@ namespace TimeFlow.Application.Features.Category.Queries
         public async Task<GeneralResponse<CategoryModel>> Handle(CategoryGetByIdQuery query, CancellationToken cancellationToken = default)
         {
             // Merrni rolin me ID nga repository
-            var category = await _categoryRepository.GetById(query.Id, cancellationToken: cancellationToken).ConfigureAwait(false);
+            var category = await _categoryRepository.GetByIdAsync(query.Id, cancellationToken).ConfigureAwait(false);
 
 
             if (category == null)

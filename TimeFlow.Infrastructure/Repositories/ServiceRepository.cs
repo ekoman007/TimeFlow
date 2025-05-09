@@ -1,8 +1,8 @@
-﻿
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Threading;
+using System.Threading.Tasks;
 using TimeFlow.Domain.Aggregates.UsersAggregates;
-using TimeFlow.Infrastructure.Contracts;
+using TimeFlow.Domain.Repositories;
 using TimeFlow.Infrastructure.Database;
 
 namespace TimeFlow.Infrastructure.Repositories
@@ -14,9 +14,9 @@ namespace TimeFlow.Infrastructure.Repositories
         public ServiceRepository(TimeFlowDbContext dbContext) : base(dbContext)
         {
             _dbContext = dbContext;
-        } 
+        }
 
-        public async Task<bool> GetserviceByNameAsync(string name, CancellationToken cancellationToken)
+        public async Task<bool> GetServiceByNameAsync(string name, CancellationToken cancellationToken)
         {
             return await _dbContext.Services.AnyAsync(u => u.Name == name, cancellationToken);
         }

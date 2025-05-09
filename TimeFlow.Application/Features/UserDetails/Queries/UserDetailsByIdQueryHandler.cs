@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +24,7 @@ namespace TimeFlow.Application.Features.UserDetails.Queries
         public async Task<GeneralResponse<UserDetailsModel>> Handle(UserDetailsByIdQuery query, CancellationToken cancellationToken = default)
         {
             // Merrni rolin me ID nga repository
-            var userDetails = await _userDetailsRepository.ByUserId(query.Id, cancellationToken: cancellationToken).ConfigureAwait(false);
+            var userDetails = await _userDetailsRepository.GetByUserIdAsync(query.Id, cancellationToken).ConfigureAwait(false);
 
 
             if (userDetails == null)
@@ -56,3 +56,4 @@ namespace TimeFlow.Application.Features.UserDetails.Queries
         }
     }
 }
+

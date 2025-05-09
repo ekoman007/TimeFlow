@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace TimeFlow.SharedKernel
 {
-    public interface IAggregateRoot<TKey> : IEntity<TKey>
+    // Non-generic version for backward compatibility
+    public interface IAggregateRoot
+    {
+        // Marker interface for aggregate roots
+    }
+
+    // Generic version
+    public interface IAggregateRoot<TKey> : IEntity<TKey>, IAggregateRoot
     {
         //
     }

@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +26,7 @@ namespace TimeFlow.Application.Features.Staffs.Commands
         {
             ArgumentNullException.ThrowIfNull(request);
 
-            var staffExists = await _staffRepository.GetById(request.Id, cancellationToken: cancellationToken);
+            var staffExists = await _staffRepository.GetByIdAsync(request.Id, cancellationToken);
 
             if (staffExists.IsActive == false)
             {
@@ -38,7 +38,7 @@ namespace TimeFlow.Application.Features.Staffs.Commands
             }
 
 
-            await _staffRepository.Update(staffExists, cancellationToken).ConfigureAwait(false);
+            await _staffRepository.UpdateAsync(staffExists, cancellationToken).ConfigureAwait(false);
             await _unitOfWork.Save(cancellationToken).ConfigureAwait(false);
 
             return new GeneralResponse<int>

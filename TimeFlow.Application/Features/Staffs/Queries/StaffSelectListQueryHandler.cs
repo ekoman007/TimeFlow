@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using Microsoft.EntityFrameworkCore; 
 using TimeFlow.Application.Features.Staffs.DTOs;
 using TimeFlow.Infrastructure.Contracts;
@@ -20,7 +20,7 @@ namespace TimeFlow.Application.Features.Staffs.Queries
             // Merrni rolet nga repository
 
             var staffList = await _staffRepository
-                .Get(cancellationToken: cancellationToken)
+                .GetQueryable(cancellationToken)
                 .ToListAsync(cancellationToken);
 
             // Kthejeni vetëm Id dhe RoleName për çdo rol

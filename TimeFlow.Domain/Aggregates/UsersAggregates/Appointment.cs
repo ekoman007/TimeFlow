@@ -1,5 +1,4 @@
-﻿
-using TimeFlow.Domain.Aggregates.Enums;
+﻿using TimeFlow.Domain.Aggregates.Enums;
 using TimeFlow.SharedKernel;
 
 namespace TimeFlow.Domain.Aggregates.UsersAggregates
@@ -56,8 +55,8 @@ namespace TimeFlow.Domain.Aggregates.UsersAggregates
             };
         }
 
-        public void Approve() => Status = AppointmentStatus.Approved;
-        public void Cancel() => Status = AppointmentStatus.Canceled;
+        public void Confirm() => Status = AppointmentStatus.Confirmed;
+        public void Cancel() => Status = AppointmentStatus.Cancelled;
         public void Complete() => Status = AppointmentStatus.Completed;
     }
 }
